@@ -1,0 +1,182 @@
+/**
+ * style.css
+ *
+ * @autor       : José Robles
+ * @version     : 0.3
+ * @creado      : 14/07/21
+ *
+ * Hoja de estilos Tasca M2 - Nivell 3.
+ *
+ * Index
+ * - Fuente 
+ * - Contenedor principal
+ * - Cabecera
+ * - Menú de navegación principal
+ * - Sección principal
+ * - Sección secundaria
+ * - Pié de página
+ *
+ */
+
+/* inclusión google fonts fuente : Roboto Light 300 */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+
+/* Contenedor principal para centrar diseño para escritorio */
+
+
+main {
+
+display:flex;
+flex-direction:column;
+
+}
+
+header {
+            display: flex;
+            justify-content: space-between;
+			background-image: url("../images/background-header-copia.jpg");
+			background-repeat: no-repeat;
+			background-size: 100% 120px;
+			height:120px;
+          }
+		  header #logo{
+			margin-top:30px;height:60px;width:199.66px;margin-left:30.34px;
+		  }
+
+header #social1{background-image: url("../images/twitter.png");}
+header #social2{background-image: url("../images/facebook.png");}
+header #social3{background-image: url("../images/instagram.png");}
+		  
+#social{width:130px;height:40.75px;margin-top:39.25px;margin-right:1%;}
+#social1,#social2,#social3 {
+    height: 39.56px;
+    width: 40px;
+    
+    border-radius: 50%;
+    display: inline-block;
+    
+}
+
+	nav a{text-decoration: none;font-size: 3vh;}	  
+ul{
+	display: flex;
+  background-color: #f1f1f1;list-style:none;padding-left:0px;
+}
+ul > li {
+  background-color: DodgerBlue;
+  color: white;
+  width: 25%;
+  margin: 10px;
+  text-align: center;
+  line-height: 75px;
+  font-size: 30px;
+}
+
+section{display:flex;margin-top: 21.5px;}
+section div#uno{background-image: url("../images/destacado.jpg");background-size: 100% 100%;background-repeat: no-repeat;}
+section div#dos{background-image: url("../images/destacado.jpg");background-size: 100% 100%;background-repeat: no-repeat;}
+section div#tres{background-image: url("../images/destacado.jpg");background-size: 100% 100%;background-repeat: no-repeat;}
+
+section div#uno{flex:33.3%;margin-right:10px;}
+section div#dos{flex:33.3%;margin-right:10px;}
+section div#tres{flex:33.3%}
+
+/* enlace leer más sobre imagen de section/destacado */
+
+.centrado{margin-top: 25%;margin-left:40%}
+.centrado a{
+    
+    
+    border-radius:2em;
+    box-sizing: border-box;
+    padding:10px;
+    text-decoration:none;  
+    color:#FFFFFF;
+    background-color:#4eb5f1;
+    
+}
+
+/* titulo sobre imagen en section/destacado */
+
+.titulo{
+    
+    margin-top:0px;
+    width: 100%;
+    height: 40px;
+    background-image: linear-gradient(#002E4B, #0081B6);
+    font-size: 30px;
+    text-align: center;  
+}
+
+/* efecto cambio de color al posicionarse sobre el enlace en imagen section/destacado */
+
+.centrado a:hover{
+    background-color:#4095c6;
+    }
+
+
+
+/* secundaria */
+
+
+aside{display:flex;height:425.5px;background-color:#fff;margin-top: 25px;}
+aside div#uno{flex:15%;height:425.5px;background-color:#bbb;margin-right: 2.18px;}
+aside div#dos{flex:70%;height:425.5px;background-color: #5c5050;margin-right: 2.18px;}
+aside div#tres{flex:15%;height:425.5px;background-color:#bbb;margin-right: 2.18px; }
+
+aside section{flex-direction: column;margin: 0 10px 0 10px;}
+
+aside img{width: 100px;height:58x}
+.leermas{
+  border-radius:2em;
+  box-sizing: border-box;
+  padding:0 10px 0 10px;
+  text-decoration:none;  
+  color:#fff;
+  background-color:#4eb5f1;
+  
+  
+}
+.leermas:hover{
+  background-color:#4095c6;
+  }
+
+
+/* Pié de página */
+
+footer{display:block;height:69.5px;background-color:#5c5050;margin-top: 24.5px;}
+
+footer p{margin-top:5px;text-align: center;}
+
+/* Media Queries */
+
+  /* Punto de ruptura para ocultar desbordamiento de párrafo bajo 620px */
+
+@media (max-width: 620px) {
+  section#dos p{display:none;}
+}
+
+/* Punto de ruptura reorganizar en columnas elementos de navegación principal 
+y restructurar margenes y relleno bajo 800px de la sección principal */
+
+@media (max-width: 800px) {
+  ul  {
+	 
+    flex-direction: column;
+  }
+  ul > li{width:95%; }
+   
+  section   {
+    flex-direction: column;
+	
+  }
+  section div#uno,section div#dos{margin-right:0px;}
+  section > div{margin-bottom:15px;}
+  .titulo{
+    padding:0px; 
+  }
+  
+}
+

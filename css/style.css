@@ -1,0 +1,60 @@
+/**
+ * style.css
+ *
+ * @autor       : José Robles
+ * @version     : 0.1
+ * @creado      : 13/07/21
+ *
+ * Hoja de estilos Tasca M2 - Nivell 1.
+ *
+ * Index
+ * - Contenedor principal
+ * - Cabecera
+ * - Menú de navegación principal
+ * - Sección principal
+ * - Sección secundaria
+ * - Pié de página
+ *
+ */
+
+/* Contenedor principal para centrar diseño para escritorio */
+
+main{max-width: 1000px;margin: auto;}
+
+/* Cabecera que contiene logo e iconos sociales */
+
+header{display:block;width:1000px;height:120px;background-color:#bbb;position:relative;}
+#logo{display:block;width:199.66px;height:60px;background-color:#fff;position:absolute;top:30px;left:30.34px}
+#social{display:block;width:141px;height:40.75px;position:absolute;top:39.25px;left:840px}
+#social1,#social2,#social3 {
+    height: 39.56px;
+    width: 40px;
+    background-color: #fff;
+    border-radius: 50%;
+    display: inline-block;
+    
+}
+
+/* Menú principal de navegación */
+
+nav{position:relative;display:block;width:1000px;height:47.5px;background-color:#fff;margin-top: 21.5px;}
+ul{list-style: none;margin:0px;padding:0px;width:100%;position:absolute;}
+li#uno, li#dos, li#tres, li#cuatro, li#cinco{display:inline-block;width: 196.5px;height:47.5px;background-color:#bbb;top:0px;}
+
+/* sección principal */
+
+section{display:block;width:1000px;height:191.25px;background-color:#fff;margin-top: 21.5px;}
+section div#uno{display: inline-block;width:329px;height:191.25px;background-color:#bbb;margin-right: 1.87px;}
+section div#dos{display: inline-block;width:329px;height:191.25px;background-color: #bbb;margin-right: 1.87px;}
+section div#tres{display: inline-block;width:329px;height:191.25px;background-color: #bbb;}
+
+/* sección secundaria */
+
+aside{display:block;width:1000px;height:425.5px;background-color:#fff;margin-top: 25px;}
+aside div#uno{display: inline-block;width:195px;height:425.5px;background-color:#bbb;margin-right: 2.18px;}
+aside div#dos{display: inline-block;width:596px;height:425.5px;background-color: #5c5050;margin-right: 2.18px;}
+aside div#tres{display: inline-block;width:195px;height:425.5px;background-color: #bbb;}
+
+/* Pié de página */
+
+footer{display:block;width:1000px;height:69.5px;background-color:#5c5050;margin-top: 24.5px;}

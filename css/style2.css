@@ -1,0 +1,145 @@
+/**
+ * style.css
+ *
+ * @autor       : José Robles
+ * @version     : 0.2
+ * @creado      : 13/07/21
+ *
+ * Hoja de estilos Tasca M2 - Nivell 2.
+ *
+ * Index
+ * - Fuente 
+ * - Contenedor principal
+ * - Cabecera
+ * - Menú de navegación principal
+ * - Sección principal
+ * - Sección secundaria
+ * - Pié de página
+ *
+ */
+
+/* inclusión google fonts fuente : Roboto Light 300 */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+
+/* Contenedor principal para centrar diseño para escritorio */
+
+main{max-width: 1000px;margin: auto;}
+
+/* Cabecera que contiene logo e iconos sociales */
+
+header{display:block;width:1000px;height:120px;background-color:#bbb;background-image: url("../images/background-header.jpg");position:relative;}
+#logo{display:block;width:199.66px;height:60px;background-color:#fff;position:absolute;top:30px;left:30.34px}
+header #logo{background-image: url("../images/logo.png");}
+#social{display:block;width:141px;height:40.75px;position:absolute;top:39.25px;left:840px}
+#social1,#social2,#social3 {
+    height: 39.56px;
+    width: 40px;
+    background-color: #fff;
+    border-radius: 50%;
+    display: inline-block;
+    
+}
+header #social1{background-image: url("../images/twitter.png");}
+header #social2{background-image: url("../images/facebook.png");}
+header #social3{background-image: url("../images/instagram.png");}
+
+/* Menú principal de navegación */
+
+nav{position:relative;display:block;width:1000px;height:47.5px;background-color:#fff;margin-top: 21.5px;}
+
+/* links sin subrayado en barra de navegación principal */
+
+nav a{text-decoration: none;font-size: 20px;display:block; text-align: center;margin-top: 10px;}
+
+/* Elementos de menú de navegación principal */
+
+ul{list-style: none;margin:0px;padding:0px;width:100%;position:absolute;}
+li#uno, li#dos, li#tres, li#cuatro, li#cinco{display:inline-block;width: 196.5px;height:47.5px;background-color:#bbb;top:0px;}
+
+/* sección principal */
+
+section{display:block;width:1000px;height:191.25px;background-color:#fff;margin-top: 21.5px;}
+section div#uno{position: relative;display: inline-block;width:329px;height:191.25px;background-color:#bbb;margin-right: 1.87px;text-align: center;}
+section div#dos{position: relative;display: inline-block;width:329px;height:191.25px;background-color: #bbb;margin-right: 1.87px;}
+section div#tres{position: relative;display: inline-block;width:329px;height:191.25px;background-color: #bbb;}
+
+
+
+/* enlace leer más sobre imagen de section/destacado */
+
+.centrado a{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius:2em;
+    box-sizing: border-box;
+    padding:10px;
+    text-decoration:none;  
+    color:#FFFFFF;
+    background-color:#4eb5f1;
+    
+}
+
+/* titulo sobre imagen en section/destacado */
+
+.titulo{
+    
+    position: absolute;
+    width: 329px;
+    height: 40px;
+    background-image: linear-gradient(#002E4B, #0081B6);
+    font-size: 30px;
+    top:0px;
+    left: 0px;text-align: center;  
+}
+
+/* efecto cambio de color al posicionarse sobre el enlace en imagen section/destacado */
+
+.centrado a:hover{
+    background-color:#4095c6;
+    }
+
+/* sección secundaria */
+
+/*base sección secundaria */
+
+aside{display:block;width:1000px;height:425.5px;background-color:#fff;margin-top: 25px;}
+aside div#uno{position: relative;display: inline-block;width:195px;height:425.5px;background-color:#bbb;margin-right: 2.18px;}
+aside div#dos{position: relative;display: inline-block;width:596px;height:425.5px;background-color: #5c5050;margin-right: 2.18px;}
+aside div#tres{position: relative;display: inline-block;width:195px;height:425.5px;background-color: #bbb;}
+
+/* definición de entradas en segunda sección secundaria */
+
+aside div#dos section{position: absolute;}
+aside div#dos section#uno{position: absolute;margin-top:0px;top:0px;height:200px}
+aside div#dos section#dos{position: absolute;top:160px;height:250px}
+
+/* definición elementos titulo, párrafo, imagen y link leer más de cada entrada */
+
+aside div#dos h2{margin-top:5px;}
+aside div#dos h2,aside div#dos p,aside div#dos img{position: absolute;left:20px}
+aside div#dos img{top:50px;}
+aside div#dos p{top:100px;width: 560px;}
+.leermas{
+    border-radius:2em;
+    box-sizing: border-box;
+    padding:0 10px 0 10px;
+    text-decoration:none;  
+    color:#fff;
+    background-color:#4eb5f1;
+    
+    
+}
+.leermas:hover{
+    background-color:#4095c6;
+    }
+
+/* Pié de página */
+
+footer{display:block;width:1000px;height:69.5px;background-color:#5c5050;margin-top: 24.5px;}
+
+footer p{padding-top:5px;text-align: center;}
+
