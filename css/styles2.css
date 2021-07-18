@@ -1,0 +1,105 @@
+/**
+ * styles.css
+ *
+ * @autor       : José Robles
+ * @version     : 0.2
+ * @creado      : 15/07/21
+ *
+ * Hoja de estilos Tasca M3 - Nivell 2.
+ *
+ * Index
+ * - Importar fuente
+ * - Reseteo
+ * - Contenedor principal flexbox
+ * - Propiedades en común items flexbox
+ * - Propiedades particulares de cada item de flexbox
+ * - Propiedades para el texto comunes todo el documento
+ *
+ */
+
+/* Importar fuente : google fonts Lato Lightt 300 */
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
+
+/* Reseteo : Establecer para todos los elementos border-box */
+
+* {
+  box-sizing: border-box;
+}
+
+/* Contenedor principal : Bloque contenedor flexbox direccionalidad filas */
+
+
+.bloque {
+  position: absolute;
+  width: 20%;
+  min-height: 100vh;
+  overflow: hidden;
+  
+ 
+}
+
+.bloque:nth-child(1) {
+  left: 0;
+  background: #244F75;
+}
+.bloque:nth-child(2) {
+  left: 20vw;
+  background: #60BFBF;
+}
+.bloque:nth-child(3) {
+  left: 40vw;
+  background: #8C4B7E;
+}
+.bloque:nth-child(4) {
+  left: 60vw;
+  background: #F8BB44;
+}
+.bloque:nth-child(5) {
+  left: 80vw;
+   background: #F24B4B;
+}
+
+.bloque_contenedor .contenido {
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+}
+
+.bloque_contenedor .contenido:before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  opacity: 0.1;
+
+  -webkit-transform: skew(30deg) scaleY(1) translate(0, 0);
+          transform: skew(30deg) scaleY(1) translate(0, 0);
+}
+
+
+/* Propiedades para el texto comunes todo el documento : Estableciendo fuente,
+	interlineado para el website */
+
+body {
+  font-family: 'Lato';
+  line-height: 1.5;
+  
+}
+
+/* Estableciendo peso de la fuente */
+
+h1 {
+  font-weight: 300;
+}

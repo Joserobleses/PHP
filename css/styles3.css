@@ -1,0 +1,276 @@
+/**
+ * styles.css
+ *
+ * @autor       : José Robles
+ * @version     : 0.2
+ * @creado      : 15/07/21
+ *
+ * Hoja de estilos Tasca M3 - Nivell 2.
+ *
+ * Index
+ * - Importar fuente
+ * - Reseteo
+ * - Contenedor principal flexbox
+ * - Propiedades en común items flexbox
+ * - Propiedades particulares de cada item de flexbox
+ * - Propiedades para el texto comunes todo el documento
+ *
+ */
+
+/* Importar fuente : google fonts Lato Lightt 300 */
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
+
+/* Reseteo : Establecer para todos los elementos border-box */
+
+* {
+  box-sizing: border-box;
+}
+
+/* Contenedor principal : Bloque contenedor flexbox direccionalidad filas */
+
+
+/*.bloque {
+  position: absolute;
+  width: 20%;
+  min-height: 100vh;
+  overflow: hidden;
+  
+ 
+}
+*/
+
+
+.bloque_contenedor {
+  min-height: 100vh;
+  text-align: center;
+  overflow: hidden;
+  color: white;
+}
+
+
+
+
+
+.bloque {
+  will-change: width, left, z-index, height;
+  position: absolute;
+  width: 20%;
+  min-height: 100vh;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.bloque:nth-child(1) {
+  left: 0;
+  background: #244F75;
+  -webkit-transform: translate3d(-100%, 0, 0);
+          transform: translate3d(-100%, 0, 0);
+  -webkit-animation-name: strip1;
+          animation-name: strip1;
+  -webkit-animation-delay: 0.1s;
+          animation-delay: 0.1s;
+}
+
+.bloque:nth-child(2) {
+  left: 20vw;
+  background: #60BFBF;
+  -webkit-transform: translate3d(0, 100%, 0);
+          transform: translate3d(0, 100%, 0);
+  -webkit-animation-name: strip2;
+          animation-name: strip2;
+  -webkit-animation-delay: 0.2s;
+          animation-delay: 0.2s;
+}
+.bloque:nth-child(3) {
+  left: 40vw;
+  background: #8C4B7E;
+  -webkit-transform: translate3d(0, -100%, 0);
+          transform: translate3d(0, -100%, 0);
+  -webkit-animation-name: strip3;
+          animation-name: strip3;
+  -webkit-animation-delay: 0.3s;
+          animation-delay: 0.3s;
+}
+.bloque:nth-child(4) {
+  left: 60vw;
+  background: #F8BB44;
+  -webkit-transform: translate3d(0, 100%, 0);
+          transform: translate3d(0, 100%, 0);
+  -webkit-animation-name: strip4;
+          animation-name: strip4;
+  -webkit-animation-delay: 0.4s;
+          animation-delay: 0.4s;
+}
+.bloque:nth-child(5) {
+  left: 80vw;
+   background: #F24B4B;
+-webkit-transform: translate3d(100%, 0, 0);
+          transform: translate3d(100%, 0, 0);
+  -webkit-animation-name: strip5;
+          animation-name: strip5;
+  -webkit-animation-delay: 0.5s;
+          animation-delay: 0.5s;   
+}
+
+.bloque_contenedor .bloque {
+	-webkit-animation-duration: 1s;
+          animation-duration: 1s;
+  -webkit-animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+          animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;	
+	
+}
+.bloque_contenedor .contenido {
+		  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+}
+.bloque_contenedor .contenido:hover:before {
+  -webkit-transform: skew(0deg) scale(3) translate(0, 0);
+          transform: skew(0deg) scale(3) translate(0, 0);
+  opacity: 0.1;
+}
+
+.bloque_contenedor .contenido:before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  opacity: 0.1;
+-webkit-transform-origin: center center;
+          transform-origin: center center;
+  -webkit-transform: skew(30deg) scaleY(1) translate(0, 0);
+          transform: skew(30deg) scaleY(1) translate(0, 0);
+		  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+
+@-webkit-keyframes strip1 {
+  0% {
+    -webkit-transform: translate3d(-100%, 0, 0);
+            transform: translate3d(-100%, 0, 0);
+  }
+  100% {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes strip1 {
+  0% {
+    -webkit-transform: translate3d(-100%, 0, 0);
+            transform: translate3d(-100%, 0, 0);
+  }
+  100% {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+  }
+}
+@-webkit-keyframes strip2 {
+  0% {
+    -webkit-transform: translate3d(0, 100%, 0);
+            transform: translate3d(0, 100%, 0);
+  }
+  100% {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes strip2 {
+  0% {
+    -webkit-transform: translate3d(0, 100%, 0);
+            transform: translate3d(0, 100%, 0);
+  }
+  100% {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+  }
+}
+@-webkit-keyframes strip3 {
+  0% {
+    -webkit-transform: translate3d(0, -100%, 0);
+            transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes strip3 {
+  0% {
+    -webkit-transform: translate3d(0, -100%, 0);
+            transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+  }
+}
+@-webkit-keyframes strip4 {
+  0% {
+    -webkit-transform: translate3d(0, 100%, 0);
+            transform: translate3d(0, 100%, 0);
+  }
+  100% {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes strip4 {
+  0% {
+    -webkit-transform: translate3d(0, 100%, 0);
+            transform: translate3d(0, 100%, 0);
+  }
+  100% {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+  }
+}
+@-webkit-keyframes strip5 {
+  0% {
+    -webkit-transform: translate3d(100%, 0, 0);
+            transform: translate3d(100%, 0, 0);
+  }
+  100% {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes strip5 {
+  0% {
+    -webkit-transform: translate3d(100%, 0, 0);
+            transform: translate3d(100%, 0, 0);
+  }
+  100% {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+  }
+}
+/* Propiedades para el texto comunes todo el documento : Estableciendo fuente,
+	interlineado para el website */
+
+body {
+  font-family: 'Lato';
+  line-height: 1.5;
+  
+}
+
+/* Estableciendo peso de la fuente */
+
+h1 {
+  font-weight: 300;
+}
