@@ -1,0 +1,27 @@
+@charset "UTF-8";
+/**
+ * styles.css
+ *
+ * @autor       : José Robles
+ * @version     : 0.2
+ * @creado      : 17/07/21
+ *
+ * Hoja de estilos Tasca M4 - Nivell 2.
+ *
+ * Index
+ * - Barra de navegación 
+ * - Formulario registro
+ *
+ */
+
+
+.text-primary{color:pink;background-color:black;}
+.text-secondary{color:green;background-color:orange;}
+.text-success{color:yellow;background-color:blue;}
+.text-danger{color:white;background-color:grey;}
+.text-warning{color:black;background-color:pink;}
+.text-info{color:blue;background-color:green;}
+.text-light{color:grey;background-color:yellow;}
+.text-dark{color:red;background-color:green;}
+.text-muted{color:orange;background-color:yellow;}
+.text-white{color:blue;background-color:red;}

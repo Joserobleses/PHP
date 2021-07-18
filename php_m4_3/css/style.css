@@ -1,0 +1,29 @@
+@charset "UTF-8";
+/**
+ * style.css
+ *
+ * @autor       : José Robles
+ * @version     : 0.3
+ * @creado      : 18/07/21
+ *
+ * Hoja de estilos Tasca M4 - Nivell 3.
+ *
+ * Index
+ * - Barra de navegación 
+ *
+ */
+
+
+/* Barra de navegación */
+
+.navbar-dark .navbar-toggler {color: hsla(0,0%,10%,.55);}
+@media (max-width: 990px) {
+  .navbar-nav{
+	flex-direction: row;margin-right;
+  }
+}
+@media (max-width: 990px) {
+  .nav-item{
+	margin-right:30px;
+  }
+}
