@@ -1,0 +1,203 @@
+﻿Nivell 2
+
+- Youtube
+Tractarem de fer un model senzill de com seria la base de dades per a una versió reduïda de YouTube. 
+
+De cada usuari guardem un identificador únic, email, password, nom d'usuari, data de naixement, sexe, país, codi postal. 
+
+SELECT `usuari_id`,
+	`usuari_email`,
+        `usuari_password`,
+        `usuari_nom`,
+        `usuari_data_naixament`,
+        `usuari_sexe`,
+        `usuari_pais`,
+        `usuari_codi_postal`
+FROM `usuari`
+
+------------------------------------------------------------------------------------------------------------------------
+
+Un usuari publica vídeos. 
+
+SELECT 	`usuari_nom` AS 'El usuario', 
+	video_titol AS 'ha publicado el video'
+FROM `usuari`
+JOIN publicar_video ON publicar_video_usuari = usuari_id
+JOIN video ON video_video_id = video_id
+
+------------------------------------------------------------------------------------------------------------------------
+
+De cada vídeo guardem un identificador únic, un títol, una descripció, una grandària, el nom de l'arxiu de vídeo,
+ durada del vídeo, un thumbnail, el nombre de reproduccions, el número de likes, el número de dislikes. 
+
+# no he puesto imagenes en la base de datos por que no me parece buena idea, puede fallar por espacio de memoria en algun momento
+# he puesto un texto en lugar de una ruta donde se almacenaria ya que no voy a mostrar imagen solo la 'ejemplifico'
+SELECT `video_id`,
+	`video_titol`,
+        `video_descripcio`,
+        `video_tamany`,
+        `video_nom_arxiu`,
+        `video_durada`,
+        `video_thumbnail`,
+        `video_numero_reproduccions`,
+        `video_numero_likes`,
+        `video_numero_dislikes`
+FROM `video`
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+Un vídeo pot tenir tres estats diferents: públic, ocult i privat. 
+
+SELECT `estat_video_id`,
+	`estat_video`
+FROM `estat_video`
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+Un vídeo pot tenir moltes etiquetes. 
+
+
+SELECT `video_titol` AS 'El video',
+		etiqueta_nom AS 'tiene las etiquetas'
+FROM `video`
+JOIN etiqueta ON video_video_id = `video_id`
+
+
+Una etiqueta s'identifica per una Identificador únici un nom d'etiqueta. 
+
+SELECT `etiqueta_id`,
+	`etiqueta_nom`
+FROM `etiqueta`
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+Interessa guardar qui és l'usuari que publica el vídeo i en quina data/hora el fa. 
+
+SELECT 	`usuari_nom` AS 'El usuario', 
+		video_titol AS 'ha publicado el video',
+        publicar_video_data_i_hora AS 'en la fecha y hora'
+FROM `usuari`
+JOIN publicar_video ON publicar_video_usuari = usuari_id
+JOIN video ON video_video_id = video_id
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+Un usuari pot crear un canal. 
+
+SELECT `canal_nom` AS 'canal',
+	usuari_nom AS 'creat per usuari'
+FROM `canal`
+JOIN usuari ON usuari_usuari_id = usuari_id
+
+Un canal té un identificador únic, un nom, una descripció i una data de creació. 
+
+SELECT `canal_nom`,
+	`canal_descripcio`,
+        `canal_data_creacio`
+FROM `canal`
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+Un usuari es pot subscriure als canals d'altres usuaris. 
+
+
+SELECT 	subscripcions.usuari_usuari_id AS 'el id de usuario',
+		c.usuari_nom AS 'pertenece al usuario suscrito',
+        subscripcions_id AS 'las suscricpiones a canales con id',
+        a.canal_nom AS ' de los canales',
+        a.usuari_usuari_id AS 'creados por los usuarios con id',
+        d.usuari_nom AS 'y con nombre'
+FROM `subscripcions`
+JOIN usuari c ON usuari_usuari_id = usuari_id
+JOIN canal a ON canal_canal_id = canal_id
+JOIN usuari d ON a.usuari_usuari_id = d.usuari_id
+
+------------------------------------------------------------------------------------------------------------------------
+
+Un usuari pot donar-li un like o un dislike a un vídeo una única vegada. 
+Caldrà portar un registre dels usuaris que li han donat like i dislike a un determinat vídeo i en quina data/hora ho van fer. 
+
+#taula 'registre de likes' i 'like_dislike' amb usuari unique que impedeix duplicat usuari
+SELECT usuari_nom,estat_del_like_o_dislike_estat_del_like_o_dislike_id, video_titol FROM `usuari`
+JOIN like_dislike ON usuari_id = usuari_usuari_id
+JOIN video ON video_video_id = video_id
+
+# intentar ficar usuari amb like duplicat per veure que no es pot fer
+# NOTA :usar insert por separado para verificar existencia de usuario (columna usuari_usuari_id)
+INSERT INTO `like_dislike` (`like_dislike_id`, `estat_del_like_o_dislike_estat_del_like_o_dislike_id`, `usuari_usuari_id`, `video_video_id`) VALUES (NULL, '2', '1', '1');
+
+
+
+------------------------------------------------------------------------------------------------------------------------
+Un usuari pot crear playlists amb els vídeos que li agraden. 
+
+SELECT 	`usuari_nom`, 
+		a.playlist_nom,
+        c.video_titol
+FROM `usuari`
+JOIN playlist a ON usuari_id = usuari_usuari_id
+JOIN listado_videos_playlist b ON playlist_id = b.playlist_playlist_id
+JOIN video c ON b.playlist_playlist_id = c.playlist_playlist_id
+
+
+Cada playlist té un identificador únic, un nom, una data de creació, i un estat que indica que pot ser pública o privada. 
+
+SELECT 	`playlist_id`,
+	`playlist_nom`,
+        `playlist_data_creacio`,
+        `estat_playlist`
+FROM `playlist`
+JOIN estat_playlist ON estat_playlist_estat_playlist_id = estat_playlist_id
+
+------------------------------------------------------------------------------------------------------------------------
+
+Un usuari pot escriure comentaris en un vídeo determinat.
+
+SELECT 	usuari_nom AS 'el usuario',
+	comentari_text AS 'comento esto',
+        video_titol AS 'sobre el video siguiente'
+FROM `comentari`
+JOIN video ON video_video_id = video_id
+JOIN usuari ON usuari_usuari_id = usuari_id
+
+-----------------------------------------------------------
+ 
+Cada comentari està identificat per un identificador únic, el text del comentari i la data/hora en la qual es va realitzar. 
+
+SELECT 	comentari_id AS 'el comentario con id',
+		comentari_text AS 'tiene el siguiente contenido',
+        comentari_data_hora AS 'publicado en esta fecha y hora'
+FROM `comentari`
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+Un usuari pot marcar un comentari com m'agrada o no m'agrada. 
+
+SELECT usuari_nom, comentari_text,estat_del_like_o_dislike
+FROM `usuari`
+JOIN comentari ON usuari_id = usuari_usuari_id
+JOIN like_dislike_comentari ON comentari_id = comentari_comentari_id
+JOIN estat_del_like_o_dislike ON estat_del_like_o_dislike_id = estat_del_like_o_dislike_estat_del_like_o_dislike_id
+
+
+Caldrà portar un registre dels usuaris que han marcat un comentari com m'agrada/no m'agrada, i en quina data/hora ho van fer. 
+
+
+SELECT 	usuari_nom,
+		comentari_text,
+        estat_del_like_o_dislike,
+        registre_likes_comentaricol
+FROM `usuari`
+JOIN comentari ON usuari_id = usuari_usuari_id
+JOIN like_dislike_comentari ON comentari_id = comentari_comentari_id
+JOIN estat_del_like_o_dislike ON estat_del_like_o_dislike_id = estat_del_like_o_dislike_estat_del_like_o_dislike_id
+JOIN registre_likes_comentari ON registre_likes_comentari_id = registre_likes_comentari_registre_likes_comentari_id
+
+FI------------------------------------------------------------------------------------------------------------------------

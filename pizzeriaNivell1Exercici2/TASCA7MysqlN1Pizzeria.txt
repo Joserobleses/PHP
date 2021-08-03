@@ -1,0 +1,225 @@
+ - Pizzeria
+Un client t’ha ha contractat per a dissenyar una web que permeti fer comandes de menjar a domicili per Internet.
+
+Tingues en compte les següents indicacions per a modelar com seria la base de dades del projecte: 
+-------------------------------------------------------------------------------------------------------------------------------------
+Per a cada client emmagatzemem
+
+-un identificador únic,
+- nom,
+-cognoms,
+-adreça,
+-codi postal,
+-localitat,
+-província
+- i número de telèfon. 
+-------------------------------------------------------------
+SELECT 	`client_id`,
+		`client_nom`,
+        `client_cognoms`,
+        `client_adreca`,
+        `client_codi_postal`,
+        `client_telefon`,
+        localitat,
+        provincia
+FROM `client`
+JOIN localitat ON client_localitat = localitat_id
+JOIN provincia ON provincia_id = client_provincia
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+Les dades de localitat i província estaran emmagatzemats en taules separades.
+
+Sabem que una localitat
+
+- pertany a una única província,
+
+- i que una província pot tenir moltes localitats. 
+
+Per a cada localitat emmagatzemem
+
+- un identificador únic
+- i un nom.
+
+SELECT * FROM `localitat`
+-------------------------------------------------------------
+
+SELECT localitat, provincia
+FROM `localitat`
+JOIN provincia ON provincia_provincia_id = provincia_id
+
+---------------------------------------------------------------------------
+
+ Per a cada província emmagatzemem
+- un identificador únic
+- i un nom. 
+
+SELECT * FROM `provincia`
+
+------------------------------------------------------------------------------------------------------------------------------------
+Un client pot
+
+- realitzar moltes comandes,
+-però una única comanda només pot ser realitzat per un únic client.
+
+
+
+SELECT comanda_id, client_nom FROM `comanda`
+JOIN client ON client_client_id = client_id
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+ De cada comanda s'emmagatzema 
+
+-un identificador únic,
+- data/hora,
+- si la comanda és per a repartiment a domicili o per a recollir en botiga,
+- la quantitat de productes que s'han seleccionat de cada tipus
+- i el preu total. 
+
+
+SELECT	`comanda_id`,
+	`comanda_data_i_hora`,
+        `domicili_o_recollir`,
+        producte_quantitat,
+        producte_preu,
+        b.*
+FROM `comanda`
+JOIN domicili_o_recollir ON domicili_o_recollir_id = domicili_o_recollir_domicili_o_recollir_id
+JOIN producte ON comanda_id = comanda_comanda_id
+JOIN (SELECT SUM(`producte_preu_per_quantitat`) FROM `producte`) b
+GROUP BY comanda_id
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+Una comanda pot constar
+
+- d'un o diversos productes.
+
+SELECT comanda_id,producte_nom FROM comanda
+JOIN producte ON comanda_id = comanda_comanda_id
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+Els productes poden ser
+
+- pizzes,
+- hamburgueses
+- i begudes.
+
+SELECT producte_id,tipus_de_producte FROM `producte`
+JOIN tipus_de_producte ON producte_tipus_de_producte = tipus_de_producte_id
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+ De cada producte s'emmagatzema:
+
+- un identificador únic,
+- nom,
+-descripció,
+- imatge
+- i preu. 
+
+SELECT 	`producte_id`,
+		`producte_nom`,
+        `producte_descripcio`,
+        `producte_imatge`,
+        `producte_preu`
+FROM `producte`
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+En el cas de les pizzes existeixen diverses categories que poden anar canviant de nom al llarg de l'any.
+
+ Una pizza només pot estar dins d'una categoria, però una categoria pot tenir moltes pizzes.
+
+SELECT 	`pizza_nom`,categoria_pizza_nom
+FROM `pizza`
+JOIN categoria_pizza ON pizza_id = pizza_pizza_id
+
+-----------------------------------------------------------------------------------------------------------------------------------
+ De cada categoria s'emmagatzema
+
+- un identificador únic
+-i un nom. 
+
+
+SELECT 	categoria_pizza_id,categoria_pizza_nom
+FROM categoria_pizza
+
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+
+Una comanda és gestionada per una única botiga i una botiga pot gestionar moltes comandes.
+
+SELECT 	`comanda_id`,
+	`botiga_adreça`
+FROM `comanda`
+JOIN botiga ON comanda_botiga = botiga_id
+
+
+--------------------------------------------------------------------------------------------
+
+ De cada botiga s'emmagatzema
+
+- un identificador únic,
+- adreça,
+- codi postal,
+- localitat
+- i província. 
+
+SELECT 	`botiga_id`,
+		`botiga_adreça`,
+        `botiga_codi_postal`,
+        `localitat`,
+        `provincia`
+FROM `botiga`
+JOIN localitat ON botiga_localitat = localitat_id
+JOIN provincia ON botiga_provincia = provincia_id
+
+
+-----------------------------------------------------------------------------------------------------------------------------------
+En una botiga poden treballar molts empleats i un empleat només pot treballar en una botiga.
+
+SELECT 	`botiga_adreça`,
+	empleat_nom
+FROM `botiga`
+JOIN empleat ON empleat_botiga = `botiga_id`
+
+
+
+
+De cada empleat s'emmagatzema
+
+- un identificador únic,
+- nom,
+- cognoms,
+-?nif,
+- telèfon
+- i si treballa com a cuiner o repartidor. 
+
+SELECT 	`empleat_id`,
+		`empleat_nom`,
+        `empleat_cognoms`,
+        `empleat_nif`,
+        `empleat_telefon`,
+        `cuiner_o_repartidor`
+FROM `empleat`
+JOIN cuiner_o_repartidor ON cuiner_o_repartidor_id = empleat_cuiner_o_repartidor
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+Per a les comandes de repartiment a domicili interessa guardar
+
+- qui és el repartidor que realitza el lliurament de la comanda
+- i la data/hora del moment del lliurament. 
+
+SELECT 	`comanda_data_i_hora`,
+		`empleat_nom`
+FROM `comanda`
+JOIN empleat ON empleat_empleat_id = empleat_id
+
+FI-----------------------------------------------------------------------------------------------------------------------------------

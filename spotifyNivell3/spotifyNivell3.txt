@@ -1,0 +1,219 @@
+﻿Nivell 3
+
+- Spotify
+Tractarem de fer un model senzill de com seria la base de dades necessària per a Spotify. 
+
+Existeixen dos tipus d'usuaris: usuari free i usuari premium. 
+
+#INSERT INTO `tipus_d_usuari` (`tipus_d_usuari_id`, `tipus_d_usuari`) VALUES (NULL, 'free'), (NULL, 'premium');
+
+SELECT * FROM `tipus_d_usuari`
+
+------------------------------------------------------------------------------------------------------------------------------------------
+De cada usuari guardem un identificador únic, email, password, nom d'usuari, data de naixement, sexe, país, codi postal. 
+
+SELECT * FROM `usuari`
+
+------------------------------------------------------------------------------------------------------------------------------------------
+Els usuaris premium realitzen subscripcions. 
+
+SELECT DISTINCT `usuari_nom`,tipus_d_usuari
+FROM `subscripcio`
+JOIN usuari ON `tipus_d_usuari_tipus_d_usuari_id`=2
+JOIN tipus_d_usuari ON tipus_d_usuari_id = tipus_d_usuari_tipus_d_usuari_id
+
+Les dades necessàries que caldrà guardar per a cada subscripció són: 
+data d'inici de la subscripció, data de renovació del servei i una forma de pagament, que pot ser mitjançant targeta de crèdit o PayPal. 
+
+SELECT `subscripcio_id`, `subscripcio_usuari_id`, `subscripcio_tipus_d_usuari_tipus_d_usuari_id`, `subscripcio_data_inici`, `subscripcio_data_renovacio`, `subscripcio_forma_d_pagament_id`
+FROM `subscripcio`
+WHERE `subscripcio_forma_d_pagament_id` !=0
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------
+De les targetes de crèdit guardem el número de targeta, mes i any de caducitat i el codi de seguretat.  
+
+#INSERT INTO `any_caducitat_tarjeta_credit` (`any_caducitat_tarjeta_credit_id`, `any_caducitat_tarjeta_creditcol`) VALUES (NULL, '2023'), (NULL, '2024'), (NULL, '2025'), (NULL, '2026'), (NULL, '2027'), (NULL, '2028'), (NULL, '2029'), (NULL, '2030');
+#INSERT INTO `mes_caducitat_tarjeta_credit` (`mes_caducitat_tarjeta_credit_id`, `mes_caducitat_tarjeta_credit`) VALUES (NULL, 'gener'), (NULL, 'febrer'), (NULL, 'març'), (NULL, 'abril'), (NULL, 'maig'), (NULL, 'juny'), (NULL, 'juliol'), (NULL, 'agost'), (NULL, 'setembre'), (NULL, 'octubre'), (NULL, 'novembre'), (NULL, 'desembre');
+#INSERT INTO `tarjeta_credit` (`tarjeta_credit_id`, `tarjeta_credit_numero`, `tarjeta_credit_codi_seguretat`, `tarjeta_credit_mes_caducitat_id`, `tarjeta_credit_any_caducitat_id`) VALUES (NULL, '12345678901234', '1234', '1', '2'), (NULL, '98765432109876', '4321', '7', '6');
+SELECT 	`tarjeta_credit_numero`,
+	`tarjeta_credit_codi_seguretat`,
+        mes_caducitat_tarjeta_credit,
+        any_caducitat_tarjeta_credit
+FROM `tarjeta_credit`
+JOIN mes_caducitat_tarjeta_credit ON mes_caducitat_tarjeta_credit_id = tarjeta_credit_mes_caducitat_id
+JOIN any_caducitat_tarjeta_credit ON any_caducitat_tarjeta_credit_id = tarjeta_credit_any_caducitat_id
+
+------------------------------------------------------------------------------------------------------------------------------------------
+Dels usuaris que paguen amb PayPal guardem el nom d'usuari de PayPal. 
+
+#INSERT INTO `usuari_paypal` (`usuari_paypal_id`, `usuari_paypal`) VALUES (NULL, 'paypalJose'), (NULL, 'paypalFlorencio'), (NULL, 'paypalEstefania');
+SELECT `usuari_paypal` FROM `usuari_paypal`
+
+------------------------------------------------------------------------------------------------------------------------------------------
+Ens interessa portar un registre de tots els pagaments que un usuari premium ha anat realitzant durant el període que està subscrit.
+ De cada pagament es guarda la data, un número d'ordre (que és únic) i un total. 
+
+#INSERT INTO `pagaments` (`pagaments_id`, `pagaments_data`, `pagaments_numero_ordre`, `pagaments_total`) VALUES (NULL, '2020-03-1', 'pagament001', '300'), (NULL, '2019-07-08', 'pagament002', '140');
+#INSERT INTO `pagaments` (`pagaments_id`, `pagaments_data`, `pagaments_numero_ordre`, `pagaments_total`) VALUES (NULL, '2020-03-10', 'pagament004', '16'), (NULL, '2020-01-21', 'pagament003', '109');
+SELECT	`pagaments_data`,
+	`pagaments_numero_ordre`,
+        `pagaments_total`,
+        usuari_nom
+FROM `pagaments`
+JOIN subscripcio ON pagaments_id = pagaments_pagaments_id AND pagaments_data BETWEEN subscripcio_data_inici AND subscripcio_data_renovacio
+JOIN usuari ON subscripcio_usuari_id = usuari_id
+
+
+#intent insertar registre duplicat
+# INSERT INTO `pagaments` (`pagaments_id`, `pagaments_data`, `pagaments_numero_ordre`, `pagaments_total`) VALUES (NULL, '2020-03-05', 'pagament002', '318')
+
+------------------------------------------------------------------------------------------------------------------------------------------
+Un usuari pot crear moltes playlists. 
+
+
+#es mostra usuari amb varies playlist
+SELECT 	playlist_titol,
+		usuari_nom
+FROM `playlist`
+JOIN usuari ON usuari_id = usuari_usuari_id
+
+
+De cada playlist guardem un títol, el nombre de cançons que conté, un identificador únic i una data de creació. 
+
+#id unic no permés repetir-lo la seguent linia ho confirma
+#INSERT INTO `playlist` (`playlist_id`, `playlist_titol`, `playlist_numero_cancons`, `playlist_id_unic`, `playlist_data_creacio`, `usuari_usuari_id`) VALUES (NULL, 'hip hop', '359', 'pl001', '2015-09-11', '4')
+
+
+------------------------------------------------------------------------------------------------------------------------------------------
+Quan un usuari esborra una playlist no s'esborra del sistema, sinó que es marca com que ha estat eliminada. 
+D'aquesta manera l'usuari pot tornar a recuperar els seus playlists en cas que les hagi eliminat per error. 
+És necessari emmagatzemar la data en la qual uneixi playlist ha estat marcada com eliminada. 
+
+
+SELECT * FROM `playlist_eliminada`
+
+------------------------------------------------------------------------------------------------------------------------------------------
+Podem dir que existeixen dos tipus de playlists: actives i esborrades. 
+
+SELECT * FROM `tipus_playlist`
+
+------------------------------------------------------------------------------------------------------------------------------------------
+Una playlist que està activa pot ser compartida amb altres usuaris, això vol dir que altres usuaris poden afegir cançons en ella. 
+
+SELECT DISTINCT usuari_nom,
+		tipus_playlist,
+                canco
+FROM `usuari_has_canco`
+JOIN usuari ON usuari_id = usuari_usuari_id
+JOIN tipus_playlist a ON tipus_playlist !='eliminada'
+JOIN canco b ON a.playlist_playlist_id = b.playlist_playlist_id
+
+
+En una llista compartida ens interessa saber quin usuari ha estat el que ha afegit cada cançó i en quina data ho va fer. 
+
+SELECT 	usuari_nom,
+       	canco,
+		tipus_playlist,
+        usuari_has_canco_data_comparticio
+FROM `usuari_has_canco`
+JOIN usuari ON usuari_id = usuari_usuari_id
+JOIN tipus_playlist a ON tipus_playlist !='eliminada'
+JOIN canco b ON a.playlist_playlist_id = b.playlist_playlist_id and canco_canco_id = canco_id
+
+------------------------------------------------------------------------------------------------------------------------------------------
+Una cançó només pot pertànyer a un únic àlbum. 
+
+SELECT DISTINCT canco,`album_album_id`
+FROM `canco` 
+GROUP BY canco
+
+
+Un àlbum pot contenir moltes cançons. 
+
+
+SELECT canco, album_album_id
+FROM `canco`
+
+
+Un àlbum ha estat publicat per un únic artista. 
+
+SELECT album_titol, artista FROM `album`
+JOIN artista ON artista_artista_id = artista_id
+
+Un artista pot haver publicat molts àlbums. 
+
+SELECT album_titol, artista FROM `album`
+JOIN artista ON artista_artista_id = artista_id AND artista='yonny'
+
+------------------------------------------------------------------------------------------------------------------------------------------
+De cada cançó guardem un identificador únic, un títol, una durada i el nombre de vegades que ha estat reproduïda pels usuaris de Spotify. 
+
+SELECT 	canco_id AS 'identificador únic',
+		canco AS 'titol',
+        canco_durada AS 'duracio',
+        canco_numero_reproduccions AS ' reproduidad en spotify'
+FROM `canco`
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------
+De cada àlbum guardem un identificador únic, títol, any de publicació i una imatge amb la portada. 
+
+SELECT	album_id,
+		album_titol,
+        album_any_publicacio,
+        album_imatge_portada
+FROM `album`
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------
+De cada artista guardem un identificador únic, nom i una imatge de l'artista. 
+
+
+SELECT	`artista_id`,
+		`artista`,
+        `artista_imatge`
+FROM `artista`
+
+
+------------------------------------------------------------------------------------------------------------------------------------------
+Un usuari pot seguir a molts artistes. 
+
+SELECT	`artista`, usuari_nom
+FROM `artista`
+JOIN usuari ON usuari_usuari_id = usuari_id
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------
+Un artista pot estar relacionat amb altres artistes que facin música semblant. 
+De manera que Spotify pugui mostrar-nos un llistat d'artistes relacionats amb els artistes que ens agraden. 
+
+SELECT artista FROM `artista`
+JOIN artista_relacionat ON artista_id = artista_artista_id and artista_relacionat=1
+
+------------------------------------------------------------------------------------------------------------------------------------------
+També ens interessa guardar quins són els àlbums i les cançons favorites d'un usuari. 
+
+SELECT	usuari_nom AS 'usuari',
+		canco AS 'canço favorita',
+        album_titol AS 'album favorit' 
+FROM `usuari_has_canco1_favorita`
+JOIN usuari ON usuari_usuari_id = usuari_id
+JOIN canco c ON canco_canco_id = canco_id
+JOIN album  ON c.album_album_id = album_id
+
+Un usuari pot seleccionar molts àlbums i moltes cançons com a favorites. 
+
+SELECT	usuari_nom AS 'usuari',
+		album_titol AS 'albums favorits'
+FROM `usuari_has_album`
+JOIN usuari ON usuari_usuari_id = usuari_id
+JOIN album ON album_album_id = album_id
+
+
+FI----------------------------------------------------------------------------------------------------------------------------------------

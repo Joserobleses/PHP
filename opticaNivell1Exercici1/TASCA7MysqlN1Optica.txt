@@ -1,0 +1,122 @@
+- Òptica
+Una òptica, 
+
+anomenada “Cul d'Ampolla”, 
+
+vol informatitzar la gestió dels clients i vendes d'ulleres. 
+---------------------------------------------------------------------------------------------------------------------------------
+En primer lloc l'òptica vol saber quin és el proveïdor de cadascuna de les ulleres.  
+
+--------------------------------------------
+
+SELECT `proveidor_nom`,
+	marca_nom 
+FROM `proveidor`
+JOIN marca ON proveidor_id = marca_proveidor
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+En concret vol saber de cada proveïdor 
+
+-el nom,
+- l'adreça 
+	(carrer, número, pis, porta, ciutat, codi postal i país),
+- telèfon,
+- fax,
+- NIF.
+
+--------------------------------------------
+
+SELECT	`proveidor_nom`,
+	`proveidor_carrer_adreca`,
+        `proveidor_numero_adreca`,
+        `proveidor_pis_adreca`,
+        `proveidor_porta_adreca`,
+        `proveidor_ciutat_adreca`,
+        `proveidor_codi_postal_adreca`,
+        `proveidor_pais_adreca`
+FROM `proveidor`
+
+---------------------------------------------------------------------------------------------------------------------------------
+   
+La política de compres de l'òptica es basa en que les ulleres d'una marca es compraran a un únic proveïdor (així en podrà treure més bons preus), 
+però poden comprar ulleres de diverses marques a un proveïdor. 
+
+---------------------------------------------------------------------------------------------------------------------------------
+De les ulleres vol saber,
+
+- la marca,
+- la graduació de cadascun dels vidres,
+- el tipus de muntura (flotant, pasta o metàl·lica),
+- el color de la muntura,
+- el color de cada vidre
+- i el preu.  
+
+
+SELECT 	`ulleres_graduacio_vidre_esquerra`,
+	`ulleres_graduacio_vidre_dret`, 
+        `ulleres_preu`, 
+        `marca_nom`, 
+        `tipus_montura`, 
+        `color_montura`, 
+        `color_vidre` 
+FROM `ulleres`
+JOIN marca ON marca_id = ulleres_marca
+JOIN tipus_montura ON tipus_montura_id = ulleres_tipus_montura
+JOIN color_montura ON color_montura_id = ulleres_color_montura
+JOIN color_vidre ON color_vidre_id = ulleres_color_vidre
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+Dels clients vol emmagatzemar 
+
+-el nom,
+- l'adreça postal,
+- el telèfon,
+- el correu electrònic
+- i la data de registre.
+
+---------------------------------------------
+
+SELECT	`client_nom`,
+		`client_carrer_adreca`,
+        `client_numero_adreca`,
+        `client_pis_adreca`,
+        `client_porta_adreca`,
+        `client_ciutat_adreca`,
+        `client_codi_posta_adreca`,
+        `client_pais_adreca`,
+        `client_telefon`,
+        `client_email`,
+        `client_data_registre`
+FROM `client`
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+També ens demanen,
+
+- quan arriba un client nou,
+- d'emmagatzemar el client que li ha recomanat l'establiment (sempre i quan algú li hagi recomanat).  
+
+--------------------------------------------
+
+SELECT	c_r_p.`client_nom` AS 'nou client',
+		c_nom.`client_nom` AS 'client recomenat per'
+FROM `client` AS c_nom
+JOIN `client` AS c_r_p ON c_nom.client_id = c_r_p.client_recomenat_per
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+El nostre sistema haurà d’indicar 
+
+-qui ha sigut l’empleat que ha venut cada ullera.  
+
+
+SELECT `marca_nom`,
+	`empleat_nom`
+FROM `ulleres`
+JOIN empleat ON empleat_id = ulleres_empleat
+JOIN marca ON ulleres_marca = marca_id
+
+
+ FI ---------------------------------------------------------------------------------------------------------------------------------
