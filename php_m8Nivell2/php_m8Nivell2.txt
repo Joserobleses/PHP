@@ -1,0 +1,15 @@
+Nivell 2
+- Exercici 2
+Afegeix a sobre de la taula un botó "Nou Producte" que condueixi a la pàgina insereix.php
+ on haurem de crear un formulari que ens permeti crear un producte a inserir a la base de dades. 
+
+- Exercici 3
+
+Afegeix a cada fila de la Taula de productes comprats una columna que inclogui opcions per modificar i eliminar cadascun dels productes.
+
+ Podeu indicar les opcions com vulgueu(mitjançant icones, botons...) de tal forma que: 
+
+La opció de modificar ens porti a una pàgina modificar.php que inclogui un formulari per editar dades d'aquell producte.
+
+La opció d'eliminar ens permetrà esborrar aquell producte de la base de dades. Lògica que implementarem al nivell 3.
+

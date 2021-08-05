@@ -1,0 +1,52 @@
+Tasca M8
+
+Descripció
+Ha arribat l'hora de posar en pràctica una teoria tan important com la de l'orientació a objectes en PHP. Desenvoluparem en tres fases(que s'acumularan) un projecte bàsic que representarà un inventari de productes que bé podrien ser les compres de la nostra llar. Després, desenvoluparem opcions relacionades amb els productes que comprem, de tal forma que aquest projecte bé podria ser la llavor d'una eina més complexa que ens permetrès obtenir dades rellevants sobre les nostres compres domèstiques.
+
+ Quasi res ! 
+
+Es valorarà com repartiu responsabilitats entre diferents objectes. Sabem que tot el que us proposarem en aquest exercici es pot fer tranquilament en un unic arxiu .php, però la idea és que apliqueu POO  ;).
+
+No es valorarà presentació en aquest exercici, però ja sabeu que la vida és molt més bonica amb colors i estils :)
+
+-----------------------------------------------------------------------------------------------------------------------
+Nivell 1
+-------------------------------------------------------------
+- Exercici 1
+
+Necessitarem crear una base de dades amb una taula "Compra" que tingui com a atributs:
+
+Nom del producte comprat.
+Preu unitari del producte.
+Quantitat adquirida del producte.
+Id de la fila en la taula.
+Podeu crear-al al vostre gust o fer servir l'arxiu adjunt "php_m8_n1.sql".
+
+-------------------------------------------------------------
+
+El fluxe d'execució principal vindrà donat a l'arxiu index.php que en aquesta primera fase haurà de :
+
+-------------------------------------------------------------
+
+Connectarse a una base de dades(pots crear una classe per a aïllar aquesta lògica del fluxe principal d'execució).
+
+-------------------------------------------------------------
+
+Inserir al menys 3 productes a la taula "producte" de la base de dades.
+
+-------------------------------------------------------------
+
+Crear una classe Taula, que ens servirà per a invocar els mètodes que hi implementem
+ per dibuixar una taula amb els productes registrats a la base de dades d'una manera semblant(que no té perquè igual)
+ a aquesta:
+
+Nom Producte	| Preu Unitat	| Quantitat	| Total
+
+Sal		| 0.9		| 2		| 1.8
+Xocolata	| 2		| 2		| 4
+
+Total				|		5.8
+
+-------------------------------------------------------------
+
+Desconnectarse de la base de dades.

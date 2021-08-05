@@ -1,0 +1,4 @@
+
+Nivell 3
+- Exercici 4
+Implementar les lògiques d'inserció, esborrat i modificació dels productes.
