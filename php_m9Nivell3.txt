@@ -1,0 +1,16 @@
+Tasca M9
+Nivell 3
+- Exercici 7
+Crea una aplicació web completa amb Laravel 8. Soluciona els errors que puguen aparéixer.
+
+Afegeix les llibreries de Passport.
+
+- Exercici 8
+Crea en Postman tres entorns, "local", "desenvolupament" i "preproducció". Crea una variable anomenada IP amb valor de "localhost" o 127.0.0.1, "dev.domain.com" i "pre.domain.com" respectivament. Crea també la variable "port" únicament per a l'entorn "local", fixant el valor del port de sortida que utilitzes a localhost.
+
+Únicament en l'entorn local de postman, executa les peticions de l'nivell 2 utilitzant en la URL les variables creades IP i port.
+
+Exportar una nova col·lecció amb els entorns creats i guarda-la en el projecte.
+
+
+

@@ -1,0 +1,266 @@
+{
+	"info": {
+		"_postman_id": "03a9bf24-c7a3-43dc-84a6-ebf146a395a8",
+		"name": "PHP_M9Exercici8",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getPaises",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ip}}:{{port}}/php_m9/nivell3/public/paises",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"php_m9",
+						"nivell3",
+						"public",
+						"paises"
+					]
+				},
+				"description": "Retorna paisos"
+			},
+			"response": []
+		},
+		{
+			"name": "postPaises",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{ip}}:{{port}}/php_m9/nivell3/public/paises",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"php_m9",
+						"nivell3",
+						"public",
+						"paises"
+					]
+				},
+				"description": "Desa paisos"
+			},
+			"response": []
+		},
+		{
+			"name": "getPaises{pais}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ip}}:{{port}}/php_m9/nivell3/public/paises/Espanya",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"php_m9",
+						"nivell3",
+						"public",
+						"paises",
+						"Espanya"
+					]
+				},
+				"description": "Retorna pais"
+			},
+			"response": []
+		},
+		{
+			"name": "putPaises{pais}",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{ip}}:{{port}}/php_m9/nivell3/public/paises/Espanya",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"php_m9",
+						"nivell3",
+						"public",
+						"paises",
+						"Espanya"
+					]
+				},
+				"description": "Modifica pais"
+			},
+			"response": []
+		},
+		{
+			"name": "deletePaises{pais}",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{ip}}:{{port}}/php_m9/nivell3/public/paises/Espanya",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"php_m9",
+						"nivell3",
+						"public",
+						"paises",
+						"Espanya"
+					]
+				},
+				"description": "Elimina pais"
+			},
+			"response": []
+		},
+		{
+			"name": "getPaises{pais}departamentos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ip}}:{{port}}/php_m9/nivell3/public/paises/Espanya/departamentos",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"php_m9",
+						"nivell3",
+						"public",
+						"paises",
+						"Espanya",
+						"departamentos"
+					]
+				},
+				"description": "departamentos"
+			},
+			"response": []
+		},
+		{
+			"name": "postPaises{pais}departamentos",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{ip}}:{{port}}/php_m9/nivell3/public/paises/Espanya/departamentos",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"php_m9",
+						"nivell3",
+						"public",
+						"paises",
+						"Espanya",
+						"departamentos"
+					]
+				},
+				"description": "envia departaments del pais"
+			},
+			"response": []
+		},
+		{
+			"name": "getPaises{pais}departamentos{departamento}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ip}}:{{port}}/php_m9/nivell3/public/paises/Espanya/departamentos",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"php_m9",
+						"nivell3",
+						"public",
+						"paises",
+						"Espanya",
+						"departamentos"
+					]
+				},
+				"description": "envia departaments de paisos"
+			},
+			"response": []
+		},
+		{
+			"name": "putPaises{pais}departamentos{departamentos}",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "method",
+							"value": "PUT",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{ip}}:{{port}}/php_m9/nivell3/public/paises/Espanya/departamentos",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"php_m9",
+						"nivell3",
+						"public",
+						"paises",
+						"Espanya",
+						"departamentos"
+					]
+				},
+				"description": "Envia departaments del pais"
+			},
+			"response": []
+		},
+		{
+			"name": "deletePais{pais}departamentos{departamentos}",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "method",
+							"value": "DELETE",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{ip}}:{{port}}/php_m9/nivell3/public/paises/Espanya/departamentos",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"php_m9",
+						"nivell3",
+						"public",
+						"paises",
+						"Espanya",
+						"departamentos"
+					]
+				},
+				"description": "envia paisos a departament"
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,17 @@
+Tasca M9
+Nivell 2
+- Exercici 4
+Crea una aplicació web completa amb Laravel 8. Soluciona els errors que puguen aparéixer.
+
+Afegeix les llibreries de Passport.
+
+- Exercici 5
+Crea les següents rutes en Laravel. Configura els mètodes HTTP (GET, POST, UPDATE i DELETE)per a cadascuna.
+
+
+
+- Exercici 6
+Crea una col·lecció a Postman i guarda les peticions del punt anterior en ella. 
+Exporta la col·lecció i guarda-la en un directori nou del projecte.
+
+Nota: Si les peticions de POST, PUT i DELETE tenen problemes per visualitzar-se en postman, considera la protecció CSRF Token.
