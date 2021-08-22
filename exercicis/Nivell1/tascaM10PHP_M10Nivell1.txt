@@ -1,0 +1,344 @@
+Tasca M10
+Descripció
+Crear una aplicació, per a gestionar el fons de una llibreria técnica, aplicant el patró de disseny de software MVC(Model-Vista-Controlador). 
+
+Nivell 1
+- Exercici 1
+
+Definir les rutes principals que tindrà el nostre lloc web. 
+Per a començar simplement indicarem que les rutes retornen una cadena (així podrem comprovar que s'han creat correctament).
+A continuació s'inclou una taula amb les rutes a definir (Configura els mètodes GET, POST, UPDATE o DELETE d'acord a el tipus de ruta).
+
+
+Ruta				Text a mostrar
+
+/				Pantalla principal
+
+login				Login usuari
+
+logout				Logout usuari
+
+catalog				Llista llibres
+
+catalog/show/{id}		Vista detall libre {id}
+
+catalog/create			Afegir llibre
+
+catalog/edit/{id}		Modificar llibre {id}
+
+
+/***********************************************************************************************
+/*
+/* Exercici 1
+/* Arxiu web.php (phpm10/routes/web.php)
+/* fileres 19 a 45
+//*************************************************************************/
+//*
+/*
+Route::get('/', function () {
+    return 'Pantalla principal';//return view('welcome');
+});
+*/
+/* Ruta substituida pel verb post
+Route::get('login', function () {
+    return 'Login usuari';
+});
+*/
+/*
+Route::post('login', function () {
+    
+});
+
+Route::get('logout', function () {
+    return 'Logout usuari';
+});
+
+Route::get('catalog', function () {
+    return 'Llista llibres';
+});
+
+Route::get('catalog/show/{id}', function ($id) {
+    return 'Vista detall libre '.$id;
+});
+*/
+/* Ruta substituida pel verb put
+Route::get('catalog/create', function () {
+    return 'Afegir llibre';
+});
+*/
+/*
+Route::put('catalog/create', function () {
+    
+});
+*/
+/* Ruta substituida pel verb put
+Route::get('catalog/edit/{id}', function ($id) {
+    return 'Modificar llibre '.$id;
+});
+*/
+/*
+Route::put('catalog/edit/{id}', function () {
+    
+});
+*/
+/*
+/*
+/***********************************************************************************************
+
+- Exercici 2
+
+
+Crea les vistes php i associa-la a cadascuna de las rutes següents seguint la següent estructura:
+
+
+Crea una col·lecció a Postman i guarda la petició del punt anterior en ella. 
+Exporta la col·lecció i guarda-la en un directori nou del projecte.
+
+//***********************************************************************************************
+//*
+//* Exercici 2
+//* Arxiu web.php (phpm10/routes/web.php)
+//* Comentada linia    \App\Http\Middleware\VerifyCsrfToken::class, d'arxiu app/Http/Kernel.php 
+//* per fer servir POST al login
+//* 
+//* Exportació postman a la ruta php_m10\exercicis\Nivell1
+
+//*************************************************************************/
+//*
+//* EXERCICI 2
+//* 
+/*
+//*Comentada linia    \App\Http\Middleware\VerifyCsrfToken::class, d'arxiu app/Http/Kernel.php 
+//* per fer servir POST al login
+//*
+//* Exportació postman a la ruta php_m10\exercicis\Nivell1
+
+
+Route::get('/', function () {
+    return view('home');
+});
+
+Route::get('login', function () {
+    //Comentada linia    \App\Http\Middleware\VerifyCsrfToken::class, d'arxiu app/Http/Kernel.php
+    return view('auth.login');
+});
+
+Route::post('login', function () {
+    return view('auth.login');
+});
+
+Route::get('catalog', function () {
+    return view('catalog.index');
+});
+
+Route::get('catalog/show/{id}', function ($id) {
+    return view('catalog.show')->with(['id'=>$id]);
+});
+
+Route::get('catalog/create', function () {
+    return view('catalog.create');
+});
+
+Route::post('catalog/create', function () {
+    return view('catalog.create');
+});
+
+Route::get('catalog/edit/{id}',function ($id) {
+    return view('catalog.edit')->with(['id'=>$id]);
+});
+Route::post('catalog/edit/{id}',function ($id) {
+    return view('catalog.edit')->with(['id'=>$id]);
+});
+/*
+/*
+/***********************************************************************************************
+
+- Exercici 3
+
+
+Defineix un middleware i registreu-lo globalment a nivell de projecte.
+Aquest midlware serà l'encarregat d'imprimir la data actual a la pantalla.
+
+/***********************************************************************************************
+/*
+/* Exercici 3
+/* Middleware : Arxiu DataActualGlobal.php (phpm10/app/Http/Middleware/DataActualGlobal.php)
+/* 
+/* 
+
+use Carbon\Carbon;
+public function handle(Request $request, Closure $next)
+    {
+        $date = Carbon::now();
+        $date = $date->format('d-m-Y');
+        echo "<h1>".$date."</h1>";
+        return $next($request);
+    }
+/*
+/*
+/***********************************************************************************************
+{{ route('catalog.create') }}
+
+Crear els formularis necessaris per a poder realitzar un CRUD sobre el sistema de gestió de la biblioteca tècnica.
+
+
+/***********************************************************************************************
+/*
+/* Exercici 3
+/* Arxiu web.php (phpm10/routes/web.php)
+/* 
+
+use App\Http\Controllers\CatalogController;
+
+Route::post('catalog/create', [CatalogController::class, 'create'])->name('catalog.create');
+Route::post('catalog/edit/{id?}', [CatalogController::class, 'edit'])->name('catalog.edit');
+
+/*
+/*
+/*
+/***********************************************************************************************
+
+/***********************************************************************************************
+/*
+/* Exercici 3
+/* Arxiu CatalogController.php (phpm10/app/Http/Controllers/CatalogController.php)
+/* 
+
+
+class CatalogController extends Controller
+{
+    public function create(Request $request) {
+        return view('catalog.create');
+    }
+
+    public function edit() {
+        return view('catalog.edit');
+    }
+}
+
+
+
+
+/***********************************************************************************************
+/*
+/* Exercici 3
+/* Arxiu create.blade.php (phpm10/resources/views/catalog/create.blade.php)
+/* 
+
+<!-- EXERCICI 3 
+            Crear els formularis necessaris per a poder realitzar un CRUD
+            sobre el sistema de gestió de la biblioteca tècnica.
+            Heu de validar que la informació introduïda a l'usuari sigui correcta.
+
+            Nota: No cal crear la lògica per treballar amb la BD.
+        -->
+        <form action="{{ route('catalog.create') }}" method="post">
+            @csrf
+            <div class="row">
+                <div class="col-auto">
+                    <label class="form-label" style="font-size:32px">Nom del llibre</label>
+                </div>
+                <div class="col-auto">
+                    <input class="form-control" type="text" name="nom" required>
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-primary" type="submit" value="create">Guarda nou llibre</input> 
+                </div>
+            </div>
+        </form>
+/*
+/*
+/*
+/***********************************************************************************************
+
+/***********************************************************************************************
+/*
+/* Exercici 3
+/* Arxiu edit.blade.php (phpm10/resources/views/catalog/edit.blade.php)
+/* 
+
+<!-- EXERCICI 3 
+            Crear els formularis necessaris per a poder realitzar un CRUD
+            sobre el sistema de gestió de la biblioteca tècnica.
+            Heu de validar que la informació introduïda a l'usuari sigui correcta.
+
+            Nota: No cal crear la lògica per treballar amb la BD.
+        -->
+        <form action="{{ route('catalog.edit') }}" method="post">
+            @csrf
+            <div class="row">
+                <div class="col-auto">
+                    <label class="form-label" style="font-size:32px">Nom del llibre</label>
+                </div>
+                <div class="col-auto">
+                    <input class="form-control" type="text" name="nom" required>
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-primary" type="submit" value="create">Guarda nou llibre</input> 
+                </div>
+            </div>
+        </form>
+/*
+/*
+/*
+/***********************************************************************************************
+
+/***********************************************************************************************
+/*
+/* Exercici 3
+/* Arxiu catalogController.php (phpm10/app/Http/Controllers/CatalogController.php)
+/* Heu de validar que la informació introduïda a l'usuari sigui correcta.
+
+
+
+class CatalogController extends Controller
+{
+    public function create(Request $request) {
+       /* Exercici 3
+                    Crear els formularis necessaris per a poder realitzar un CRUD
+                    sobre el sistema de gestió de la biblioteca tècnica.
+                    Heu de validar que la informació introduïda a l'usuari sigui correcta.
+
+        */
+        $request->validate([
+            'name' => 'required'
+        ]);
+        
+        return view('catalog.create');
+    }
+
+    public function edit(Request $request) {
+        /* Exercici 3
+                    Crear els formularis necessaris per a poder realitzar un CRUD
+                    sobre el sistema de gestió de la biblioteca tècnica.
+                    Heu de validar que la informació introduïda a l'usuari sigui correcta.
+
+        */
+        $request->validate([
+            'name' => 'required'
+        ]);
+        return view('catalog.edit');
+    }
+}
+
+/***********************************************************************************************
+/*
+/* Exercici 3
+/* Arxiu create.blade.php i edit.blade.php (phpm10/resource/views/catalog/)
+/* Heu de validar que la informació introduïda a l'usuari sigui correcta.
+
+@if ($errors->any())
+                     <div class="alert alert-danger">
+                        <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                        </ul>
+                    </div>
+                    @endif
+
+
+
+
+Nota: No cal crear la lògica per treballar amb la BD.
+

@@ -1,0 +1,68 @@
+Tasca M10
+
+Nivell 2
+- Exercici 4
+
+Creeu un middleeare a nivell de controlador. 
+Aquest midlware serà l'encarregat d'imprimir la data actual a la pantalla abans de carregar la informació.
+
+/***********************************************************************************************
+/*
+/* Exercici 4
+/* Arxiu web.php (phpm10/routes/web.php)
+/* 
+//*************************************************************************/
+
+use App\Http\Controllers\ControladorMiddlewareController;
+
+Route::get('controlador', [ControladorMiddlewareController::class,'index'])->middleware('dataactualruta');
+
+
+//* Inclusió a la matriu $routeMiddleware de l'arxiu App/Http/kernel.php
+//*de 'dataactualruta'=> \App\Http\Middleware\DataActualRuta::class,
+//*
+//*
+/***********************************************************************************************
+/*
+/* Exercici 4
+/* Arxiu ControladorController.php (phpm10/app/Http/Controllers/ControladorController.php)
+/* Conecta amb vista resources/views/controller.blade.php
+
+public function index()
+    {
+        return view('controller');
+    }
+
+
+- Exercici 5
+
+Crea un sistema que gestiona l'error 404 a nivell de projecte. Podeu utilitzar la funció Resposta i la redirecció de Laravel.
+
+/***********************************************************************************************
+/*
+/* Exercici 5
+/* Arxiu (phpm10/app/Exceptions/Handler.php)
+/*  Conecta amb vista resources/views/error404.blade.php
+//*************************************************************************/
+
+ 	
+public function register()
+    {
+        $this->reportable(function (Throwable $e) {
+            //
+        });
+        /* EXERCICI 5
+            Crea un sistema que gestiona l'error 404 a nivell de projecte. 
+            Podeu utilitzar la funció Resposta i la redirecció de Laravel.
+        */
+
+
+        $this->renderable(function (Throwable $e) {
+            return response()->view('error404', [], 404);
+        });
+    }
+    /* FI EXERCICI 5
+        Crea un sistema que gestiona l'error 404 a nivell de projecte. 
+        Podeu utilitzar la funció Resposta i la redirecció de Laravel.
+    */
+

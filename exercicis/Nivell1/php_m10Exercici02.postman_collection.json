@@ -1,0 +1,134 @@
+{
+	"info": {
+		"_postman_id": "950eb834-6f54-466d-a050-a55935e50c9d",
+		"name": "php_m10Exercici02",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Raiz",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ip}}:{{port}}/php_m10/public/",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"php_m10",
+						"public",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{ip}}:{{port}}/php_m10/public/login",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"php_m10",
+						"public",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "catalog",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ip}}:{{port}}/php_m10/public/catalog",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"php_m10",
+						"public",
+						"catalog"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "catalog/show/id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ip}}:{{port}}/php_m10/public/catalog/show/5",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"php_m10",
+						"public",
+						"catalog",
+						"show",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "catalog/create",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{ip}}:{{port}}/php_m10/public/catalog/create",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"php_m10",
+						"public",
+						"catalog",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "catalog/edit/id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{ip}}:{{port}}/php_m10/public/catalog/edit/9",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"php_m10",
+						"public",
+						"catalog",
+						"edit",
+						"9"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
