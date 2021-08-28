@@ -1,0 +1,195 @@
+-------------------------------------------------------------------------------------------
+Creat usuari de cortesia per testejar exercici
+usuari : Espinosa
+
+email: espinosa@gmail.com
+
+contrasenya : espinosa
+
+Modificat arxiu .env
+APP_NAME=PHP_M11
+DB_DATABASE=php_m11
+
+s'adjunta arxiu sql per poder fer servir les funcionalitats del exercici a la carpeta \php_m11\php_m11RecursosJOSE
+
+------------------------------------------------------------------------------------------
+
+Tasca M11
+
+Descripció
+
+En aquesta pràctica aprendràs a crear peticions HTTP amb un CRUD (Create, Read, Update, Delete)
+al complet sobre una base de dades SQL. Per això implementarem un patró l'arquitectura MVC amb repositoris.
+
+Nivell 1
+
+------------------------------------------------------------------------------------------------------------------
+
+- Exercici 1
+
+Crear una aplicació, per la gestió d'empleats, aplicant el patró de disseny de software MVC(Model-Vista-Controlador). 
+
+Definir les rutes principals que tindrà el nostre lloc web. 
+El domini ha de tindre el CRUD al complet (Create, Read, Update, Delete), utilitzant els verbs HTTP associats.
+
+// ruta del codi a : php_m11\routes\web.php
+
+Route::resource('empleat', EmpleatController::class)->middleware('auth');
+
+Auth::routes();
+
+Route::get('/home', [EmpleatController::class, 'index'])->name('home')->middleware('auth');
+
+Route::group(['middleware'=>'auth'], function(){
+    Route::get('/', [EmpleatController::class, 'index'])->name('home');
+
+});
+
+
+------------------------------------------------------------------------------------------------------------------
+
+- Exercici 2
+
+Crea les vistes php y associa-la a cadascuna de las rutes .
+Dins directori views
+
+auth
+	-login, register, verify
+auth\passwords
+	-confirm, email, reset
+
+empleat
+	-create, edit, feina, index, show
+
+errors
+	-404
+
+layouts
+	-app
+
+home
+
+Defineix els Models de dades, middleware i controllers que consideres necessaris.
+ Recorda que la interacció amb la base de dades es realitzarà per mitjà del ORM Eloquent
+ i per tant els objectes seran persistits únicament en memòria.
+
+Dins directori app
+
+Models
+	- Empleat
+	- Users
+
+Controllers
+	- EmpleatController
+	- HomeController
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+- Exercici 3
+
+
+Crear els formularis necessaris per poder realitzar el CRUD sobre el sistema de gestió d'empleats.
+ Heu de validar que la informació introduïda a l'usuari sigui correcta.
+
+Codi inclós a vistes : show, edit, create
+
+@if(count($errors)>0)
+<div class='alert alert-danger' role='alert'>
+  <ul>
+    @foreach($errors->all() as $error)
+    <li>{{$error}}</li>
+    @endforeach
+  <ul>
+</div>
+@endif
+
+a EmpleatController
+
+Dins funció store
+
+$validar = [
+            'nom'=>'required|string|max:30',
+            'cognom'=>'required|string|max:30',
+            'adreca'=>'required|string|max:100',
+            'treballs'=>'required|string|max:25',
+            'telefon'=>'required|string|max:9',
+            'email'=>'required|email'
+
+        ];
+        $missatge = [
+            'required'=>'El camp es obligatori'
+        ];
+
+        $this->validate($request, $validar,$missatge);
+
+Dins funció update
+
+        $validar = [
+            'nom'=>'required|string|max:30',
+            'cognom'=>'required|string|max:30',
+            'adreca'=>'required|string|max:100',
+            'treballs'=>'required|string|max:25',
+            'telefon'=>'required|string|max:9',
+            'email'=>'required|email'
+
+        ];
+        $missatge = [
+            'required'=>'El camp es obligatori'
+        ];
+
+        $this->validate($request, $validar,$missatge);
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+Nivell 2
+
+- Exercici 4
+
+Crea una petició HTTP especial que busqui empleats per feina.
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+- Exercici 5
+
+
+Defineix la vista home de benvinguda a l’aplicació e introdueix una navbar.
+
+Crea un sistema que gestiona l'error 404 a nivell de projecte.
+ Podeu utilitzar la funció Resposta i la redirecció de Laravel.
+
+Es fa la vista 404 dins del directori views\errors\ aprofitan els recursos de laravel a diferencia de l'exercici PHP_M10
+
+-----------------------------------------------------------------------------------------------------------------------------
+Nivell 3
+
+- Exercici 6
+
+Afegeix la vista de login, registre i recuperació de contrasenya que l'usuari necessita per accedir a l'aplicació.
+
+Dins del directori views\auth es crean les vistes amb l'ajuda de laravel per crear sistema d'autenticació
+
+-----------------------------------------------------------------------------------------------------------------------------
+- Exercici 7
+
+Agafeu les dades d'inici de sessió al sistema de galetes de Laravel.
+ En cadascuna de les vistes has d'incrustar al navbar el nom d'usuari registrat.
+
+Creat amb el sistema auth d'autenticació de laravel, i es modifica la vista app dins directori views\layout.
+
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('empleat.index') }}">{{ __('Empleat') }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('empleat.create') }}">{{ __('Crear Empleat') }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('show') }}">{{ __('Buscar Empleat per Feina') }}</a>
+                    </li>
+                    </ul>
