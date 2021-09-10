@@ -1,0 +1,136 @@
+﻿Gates
+
+sistema de autorización simple - politicas similares a rutas.
+
+Policies - lógicas similares a controlador, actuamos sobre determinados modelos
+
+
+database > seeders > DatabaseSeeder.php
+
+
+public function run()
+    {
+      
+        Role::create(['name'=>'admin']);
+        Role::create(['name'=>'manager']);
+        Role::create(['name'=>'editor']);
+
+        $admin = User::create([
+            'name' =>'admin',
+            'email' =>'jrobleses@gmail.com',
+            'email_verified_at' => now(),
+            'password' =>bcrypt('password'),
+            'remember_token' => Str::random(10),
+        ]);
+
+        $user1 = User::create([
+            'name' =>'jose',
+            'email' =>'jrobleses2@gmail.com',
+            'email_verified_at' => now(),
+            'password' =>bcrypt('password'),
+            'remember_token' => Str::random(10),
+        ]);
+
+        $user2 = User::create([
+            'name' =>'joseEditor',
+            'email' =>'jrobleses3@gmail.com',
+            'email_verified_at' => now(),
+            'password' =>bcrypt('password'),
+            'remember_token' => Str::random(10),
+        ]);
+
+        $admin->assignRole('admin');
+
+        $user1->assignRole('manager');
+
+        $user2->assignRole('editor');
+    }
+
+
+
+database > migrations > 2021_09_03_152542_create_permission_tables.php
+
+app > Models > User.php
+
+routes > web.php
+
+Route::get('/', function () {
+    return view('home');
+})->name('home');
+
+require __DIR__.'/auth.php';
+
+Route::group(['middleware'=>'auth'], function(){
+    Route::resource('equip', EquipController::class);
+    Route::resource('partit', PartitController::class);
+});
+
+
+Starter kits > Breeze (composer require laravel/breeze --dev ///// php artisan breeze:install(OJO guardar routas de web.php para no perderlas) //// npm install && npm run dev //// php artisan migrate )
+
+Crear politicas --->>> php artisan make:policy UserPolicy --model=User
+
+
+Agrego filtro a politica
+
+class UserPolicy
+{
+    use HandlesAuthorization;
+
+    public function before(User $user, $ability)
+    {
+        if ($user->hasRole('admin')){
+            return true;
+        } else {return false;}
+    }
+
+
+
+
+Registrar politicas en app\Providers\AuthServiceProvider.php 
+/// BORRAR EQUIPS I PARTITS !!!!!!!!!!!!!!!!!!!!!!!!
+(
+use App\Models\User;
+use App\Policies\UserPolicy;
+
+
+....
+
+protected $policies = [
+        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+      
+        User::class => UserPolicy::class,
+
+    ];
+
+)
+
+
+Customización login al redirigir envia a equip a App\Providers\RouteServiceProvider
+
+ class RouteServiceProvider extends ServiceProvider
+{
+    /**
+     * The path to the "home" route for your application.
+     *
+     * This is used by Laravel authentication to redirect users after login.
+     *
+     * @var string
+     */
+   // public const HOME = '/dashboard';
+   public const HOME = '/equip';
+
+https://dev.to/aibnuhibban/login-customization-in-laravel-8-2gc8
+https://codersfree.com/documentacion/laravel-espa%C3%B1ol/autenticacion
+https://laravel.com/docs/8.x/controllers#resource-controllers
+
+
+A les vistes es restringeixen les accions mitjançant rols
+
+@can('view-any',$usuarios)
+		<div class="col text-end">
+            ....
+        </div>
+        @endcan
+
+
