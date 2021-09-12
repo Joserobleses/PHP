@@ -1,0 +1,527 @@
+Tasca M13
+
+Descripció
+En aquesta pràctica aprendras a crear vistes per mitjà del motor de vister Blade i aplicar bootstrao als nostres projectes.
+Hauras de crear una aplicació, per la gestió de reserva d’un Hotel, aplicant el patró de disseny de software MVC(Model-Vista-Controlador). 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Nivell 1
+///----------------------------------------------------------------------------------------------------------------------------------------
+- Exercici 1
+
+Crear una aplicació, per la gestió de reserva d’un Hotel, aplicant el patró de disseny de software MVC(Model-Vista-Controlador). 
+
+Creada aplicació PHP_M13
+
+-------------------------------------------------------------------------------------------
+
+Definir les rutes principals que tindrà el nostre lloc web.
+El domini ha de tindre el CRUD al complet (Create, Read, Update, Delete), utilitzant els verbs HTTP associats.
+
+routes > web.php
+
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ReservaHotelController;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('/', function () {
+    return view('auth.login');
+});
+/*
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+*/
+require __DIR__.'/auth.php';
+
+Route::group(['middleware'=>'auth'], function(){
+    Route::resource('reservas', ReservaHotelController::class);
+});
+
+///----------------------------------------------------------------------------------------------------------------------------------------
+- Exercici 2
+
+
+Crea les vistes amb blade i associa-la a cadascuna de las rutes .
+
+Creades les vistes a:
+
+resources > views > reservas > 
+[index.blade.php =>'llistat de reserves', create.blade.php =>'formulari de reserva', edit.blade.php =>'edició dades de reserva']
+
+----------
+inclós a routes > web.php on relaciona rutes amb controlador i aquest finalment amb les vistes
+
+use App\Http\Controllers\ReservaHotelController;
+
+Route::resource('reservas', ReservaHotelController::class);
+
+-----------------------------------------------------------------------------
+Defineix els Models de dades, middleware i controllers que consideres necessaris.
+Recorda que la interacció amb la base de dades es realitzarà per mitjà del ORM Eloquent i
+ per tant els objectes seran persistits únicament en memòria.
+----------------------------------------------------------------------------
+Migrations pel CRUD
+
+a l'arxiu database > migrations > 2021_09_11_102738_create_reserva_hotels_table.php
+class CreateReservaHotelsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('reserva_hotels', function (Blueprint $table) {
+            $table->id();
+
+            $table->string('nom');
+            $table->string('cognoms');
+            $table->string('passaport');
+            $table->string('telefon');
+            $table->string('email');
+            $table->string('adreca');
+            $table->string('ciutat');
+            $table->string('provincia');
+            $table->string('pais');
+            $table->string('comentaris');
+            
+            $table->timestamps();
+        });
+    }
+----------------------------------------------------------------------------
+inclós a routes > web.php on relaciona rutes amb controlador i aquest finalment amb les vistes
+
+use App\Http\Controllers\ReservaHotelController;
+
+Route::resource('reservas', ReservaHotelController::class);
+
+----------------------------------------------------------------------------
+En app > Http >Controllers > ReservaController.php
+
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\ReservaHotel;
+use Illuminate\Http\Request;
+
+class ReservaHotelController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $reservas = ReservaHotel::all();
+        return view('reservas.index')->with(['reservas' => $reservas]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('reservas.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $validar = [
+            'nom'=>'required|string|max:30',
+            'cognoms'=>'required|string|max:30',
+            'passaport'=>'required|string|max:50',
+            'telefon'=>'required|string|max:9',
+            'email'=>'required|email',
+            'adreca'=>'required|string|max:100',
+            'ciutat'=>'required|string|max:50',
+            'provincia'=>'required|string|max:50',
+            'pais'=>'required|string|max:50',
+            'comentaris'=>'required|string|max:200',
+
+        ];
+        $missatge = [
+            'required'=>'El camp es obligatori'
+        ];
+
+        $this->validate($request, $validar,$missatge);
+
+
+        $reservas = request()->except('_token');
+        ReservaHotel::insert($reservas);
+        return redirect('reservas')->with('missatge', 'Reserva guardada correctament');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\ReservaHotel  $reservaHotel
+     * @return \Illuminate\Http\Response
+     */
+    public function show(ReservaHotel $reservaHotel)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\ReservaHotel  $reservaHotel
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $reserva = ReservaHotel::find($id);
+        return view('reservas.edit', compact('reserva'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\ReservaHotel  $reservaHotel
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $validar = [
+            'nom'=>'required|string|max:30',
+            'cognoms'=>'required|string|max:30',
+            'passaport'=>'required|string|max:50',
+            'telefon'=>'required|string|max:9',
+            'email'=>'required|email',
+            'adreca'=>'required|string|max:100',
+            'ciutat'=>'required|string|max:50',
+            'provincia'=>'required|string|max:50',
+            'pais'=>'required|string|max:50',
+            'comentaris'=>'required|string|max:200',
+
+        ];
+        $missatge = [
+            'required'=>'El camp es obligatori'
+        ];
+
+        $this->validate($request, $validar,$missatge);
+        
+        $reserva = request()->except(['_token','_method']); 
+
+        ReservaHotel::where('id','=',$id)->update($reserva);
+        
+        // Cerca dades de la reserva modificat a la BBDD
+        $reserva = ReservaHotel::find($id);
+
+        return redirect('reservas')->with('missatge','Reserva modificada correctament');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\ReservaHotel  $reservaHotel
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        ReservaHotel::destroy($id);
+
+        return redirect('reservas');
+    }
+}
+------------------------------------------------------------------------
+
+///----------------------------------------------------------------------------------------------------------------------------------------
+- Exercici 3
+
+
+Crear els formularis necessaris per poder realitzar el CRUD sobre el sistema de reservas.
+Heu de validar que la informació introduïda a l'usuari sigui correcta.
+
+ <form action="{{route('reservas.destroy',['reserva'=>$reserva->id])}}" style="margin-bottom: 0px;" method = "post">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-sm btn-outline-danger" onclick="return confirm('ATENCIÓ : Eliminarà la reserva')"><i class="bi bi-trash">ESBORRAR</i></button>
+                        </form>
+
+---------------------------------------------
+
+<form action="{{route('reservas.store')}}" method="post">
+    @csrf
+    Nom :<input type="text" name="nom">
+    Cognom :<input type="text" name="cognoms">
+    Passaport :<input type="text" name="passaport">
+    Telefon :<input type="text" name="telefon">
+    Email :<input type="text" name="email">
+    Adreça :<input type="text" name="adreca">
+    Ciutat :<input type="text" name="ciutat">
+    Estat : <input type="text" name="provincia">
+    Pais : <input type="text" name="pais">
+    Comentaris : <input type="text" name="comentaris">
+    <input type="submit" value="Enviar">
+</form>
+
+----------------------------------------------
+
+<form action="{{route('reservas.update',['reserva'=>$reserva])}}" method="post">
+    @csrf
+    Nom :<input type="text" name="nom" value="{{$reserva->nom}}">
+    Cognom :<input type="text" name="cognoms" value="{{$reserva->cognoms}}">
+    Passaport :<input type="text" name="passaport" value="{{$reserva->passaport}}">
+    Telefon :<input type="text" name="telefon" value="{{$reserva->telefon}}">
+    Email :<input type="text" name="email" value="{{$reserva->email}}">
+    Adreça :<input type="text" name="adreca" value="{{$reserva->adreca}}">
+    Ciutat :<input type="text" name="ciutat" value="{{$reserva->ciutat}}">
+    Estat : <input type="text" name="provincia" value="{{$reserva->provincia}}">
+    Pais : <input type="text" name="pais" value="{{$reserva->pais}}">
+    Comentaris : <input type="text" name="comentaris" value="{{$reserva->comentaris}}">
+    <input type="submit" value="Enviar">
+</form>
+
+validacions incloses a les funcions store i update a app > Http >Controllers > ReservaController.php
+
+
+        $validar = [
+            'nom'=>'required|string|max:30',
+            'cognoms'=>'required|string|max:30',
+            'passaport'=>'required|string|max:50',
+            'telefon'=>'required|string|max:9',
+            'email'=>'required|email',
+            'adreca'=>'required|string|max:100',
+            'ciutat'=>'required|string|max:50',
+            'provincia'=>'required|string|max:50',
+            'pais'=>'required|string|max:50',
+            'comentaris'=>'required|string|max:200',
+
+        ];
+        $missatge = [
+            'required'=>'El camp es obligatori'
+        ];
+
+        $this->validate($request, $validar,$missatge);
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Nivell 2
+
+///----------------------------------------------------------------------------------------------------------------------------------------
+- Exercici 4
+
+Customitza la vista de login, registre i recuperació de contrasenya que l'usuari necessita per accedir a l'aplicació.
+
+a arxiu resources > views > layouts > partials >header-desktop.blade.php
+
+-- Mostrar usuari i email a la capçalera de bootstrap
+<div class="content">
+<h5 class="name">
+<a href="#">{{ Auth::user()->name }}es un </a>
+</h5>
+<span class="email">{{ Auth::user()->email }}</span>
+</div>
+
+-- Mostrar i fer operatiu logout al theme bootstrap
+
+<div class="account-dropdown__footer">
+<form method="POST" action="{{ route('logout') }}">
+@csrf
+
+<x-dropdown-link :href="route('logout')" onclick="event.preventDefault();this.closest('form').submit();">
+<i class="zmdi zmdi-power"></i>{{ __('Logout') }}
+</x-dropdown-link>
+</form>
+
+---------------------------------------
+
+Customització a nivell de clase a App\Providers\RouteServiceProvider
+
+ class RouteServiceProvider extends ServiceProvider
+{
+    /**
+     * The path to the "home" route for your application.
+     *
+     * This is used by Laravel authentication to redirect users after login.
+     *
+     * @var string
+     */
+   // public const HOME = '/dashboard';
+   public const HOME = '/home';
+
+Completa la integració del template COOL ADMIN Dashboard en el proyecte Laravel a mode de Layout.
+Pots descarregar el template fent click ací (https://github.com/puikinsh/CoolAdmin).
+
+FET. 
+
+///----------------------------------------------------------------------------------------------------------------------------------------
+- Exercici 5
+Crea un sistema que gestiona l'error 404 a nivell de projecte. Podeu utilitzar la funció Resposta i la redirecció de Laravel.
+
+Creat arxiu 404.blade.php a la ruta resources > views > errors aprofitant la funcionalitat que sobrescriu arxiu d'error 404 original de laravel.
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Nivell 3
+///----------------------------------------------------------------------------------------------------------------------------------------
+- Exercici 6
+
+Afegeix un sistema de control d’accés de Laravel (Laravel Breeze o Laravel UI). 
+Defineix la vista de login, registre i recuperació de contrasenya que l'usuari necessita per accedir a l'aplicació.
+ Fes us de la configuració per defecte.
+
+Instal.lat Laravel Breeze.
+
+///----------------------------------------------------------------------------------------------------------------------------------------
+- Exercici 7
+ Defineix sistema de rols i bloqueja el accés a les diferents vistes segons el seu nivell de privilegis.
+
+a arxiu database > seeders > DatabaseSeeder.php
+------------------------------------------------------------
+...
+use Spatie\Permission\Models\Role;
+
+use Spatie\Permission\Models\Permission;
+
+
+use App\Models\User;
+
+
+use Illuminate\Support\Str;
+
+...
+public function run()
+    {
+
+        // \App\Models\User::factory(10)->create();
+
+        Role::create(['name'=>'admin']);
+        Role::create(['name'=>'manager']);
+        Role::create(['name'=>'editor']);
+
+        $admin = User::create([
+            'name'=>'jose',
+            'email'=>'jrobleses@gmail.com',
+            'email_verified_at'=> now(),
+            'password'=>bcrypt('password'),
+            'remember_token'=> Str::random(10),
+        ]);
+
+        $user1 = User::create([
+            'name'=>'Benito',
+            'email'=>'jrobleses2@gmail.com',
+            'email_verified_at'=> now(),
+            'password'=>bcrypt('password'),
+            'remember_token'=> Str::random(10),
+        ]);
+
+        $user2 = User::create([
+            'name'=>'Manolo',
+            'email'=>'jrobleses3@gmail.com',
+            'email_verified_at'=> now(),
+            'password'=>bcrypt('password'),
+            'remember_token'=> Str::random(10),
+        ]);
+		
+		$admin->assignRole('admin');
+
+        $user1->assignRole('manager');
+
+        $user2->assignRole('editor');
+    }
+
+---------------------------
+es crea arxiu de politiques amb model correspontent a app > Policies > UserPolicy.php
+
+php artisan make:policy UserPolicy --model=User
+
+amb el següent contingut:
+
+class UserPolicy
+{
+    use HandlesAuthorization;
+
+    public function before(User $user, $ability)
+    {
+        if ($user->hasRole('admin')){
+            return true;
+        } else {return false;}
+    }
+
+    /**
+     * Determine whether the user can view any models.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewAny(User $user)
+    {
+        if ($user->hasRole('manager') || $user->hasRole('editor')){
+            return true;
+        }
+    }
+
+
+------------------------------------------------------------
+
+///----------------------------------------------------------------------------------------------------------------------------------------
+- Exercici 8
+En cadascuna de les vistes has d'incrustar al navbar el nom d'usuari registrat i el rol d’aquest.
+
+Fet a resources > views > layouta > partials >header-desktop.blade.php
+
+<div class="content">
+<h5 class="name">
+<a href="#">{{ Auth::user()->name }}</a><br>
+<a href="#">Tipo de usuari@ :</a><br>
+<a href="#">{{$usuarios->roles()->first()->name}}</a>
+</h5>
+<span class="email">{{ Auth::user()->email }}</span>
+</div>
+
+Per que funcioni el rol ($usuarios->roles()->first()->name) s'envia desde el controlador
+ app > Http > Controllers > ReservaHotelController.php la variable usuarios amb le nom del rol.
+
+public function index()
+    {
+        $reservas = ReservaHotel::all();
+        $usuarios = auth()->user();
+        //return view('reservas.index')->with(['reservas' => $reservas]);
+        return view('layouts.reservas')->with(['reservas' => $reservas, 'usuarios'=>$usuarios]);
+    }
+
+public function create()
+    {
+        $usuarios = auth()->user();
+        return view('layouts.create')->with(['usuarios'=>$usuarios]);
+    }
+
+public function edit($id)
+    {
+        $reserva = ReservaHotel::find($id);
+        $usuarios = auth()->user();
+       // return view('reservas.edit', compact('reserva'));
+       return view('layouts.edit', compact('reserva','usuarios'));
+    }
+
+
+
+
