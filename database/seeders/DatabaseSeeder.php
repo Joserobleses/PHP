@@ -53,5 +53,11 @@ class DatabaseSeeder extends Seeder
         $user1->assignRole('manager');
 
         $user2->assignRole('editor');
+
+        
+
+
+
     }
 }
+

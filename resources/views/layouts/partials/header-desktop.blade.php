@@ -146,7 +146,7 @@
                                                 <img src="{!! asset('theme/images/icon/avatar-01.jpg') !!}" alt="John Doe" />
                                             </div>
                                             <div class="content">
-                                                <a class="js-acc-btn" href="#">{{ Auth::user()->name }}</a>
+                                               <!-- <a class="js-acc-btn" href="#">{{ Auth::user()->name }}</a>-->
                                             </div>
                                             <div class="account-dropdown js-dropdown">
                                                 <div class="info clearfix">
@@ -159,7 +159,13 @@
                                                         <h5 class="name">
                                                             <a href="#">{{ Auth::user()->name }}</a><br>
                                                             <a href="#">Tipo de usuari@ :</a><br>
-                                                            <a href="#">{{$usuarios->roles()->first()->name}}</a>
+                                                            <a href="#">
+                                                            
+                                                                {{$usuarios->roles()->first()->name}}
+                                                                
+                                                            
+                                                                
+                                                            </a>
                                                         </h5>
                                                         <span class="email">{{ Auth::user()->email }}</span>
                                                     </div>

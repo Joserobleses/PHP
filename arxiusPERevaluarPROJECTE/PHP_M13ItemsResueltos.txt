@@ -111,7 +111,7 @@ use App\Http\Controllers\ReservaHotelController;
 Route::resource('reservas', ReservaHotelController::class);
 
 ----------------------------------------------------------------------------
-En app > Http >Controllers > ReservaController.php
+En app > Http > Controllers > ReservaController.php
 
 <?php
 
@@ -350,6 +350,20 @@ a arxiu resources > views > layouts > partials >header-desktop.blade.php
 <i class="zmdi zmdi-power"></i>{{ __('Logout') }}
 </x-dropdown-link>
 </form>
+-------------------------------------------------------------
+resources > views > auth > register.blade.php
+
+ <!-- tipus d' usuari -->
+            <div class="mt-4">
+                <x-label for="userType" :value="__('User Type')" />
+
+
+                <select name="userType" class="block mt-1 w-full" >
+                    <option value="admin">Admin</option> 
+                    <option value="manager">Manager</option> 
+                    <option value="editor">Editor</option>
+                </select>
+            </div>
 
 ---------------------------------------
 
@@ -393,6 +407,19 @@ Instal.lat Laravel Breeze.
 ///----------------------------------------------------------------------------------------------------------------------------------------
 - Exercici 7
  Defineix sistema de rols i bloqueja el accés a les diferents vistes segons el seu nivell de privilegis.
+
+
+/*protected function create(array $data)
+    {
+        $user =  User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
+
+          $user->assignRole('customer'); //assign role to user
+          return $user;    
+    }*/
 
 a arxiu database > seeders > DatabaseSeeder.php
 ------------------------------------------------------------
@@ -486,7 +513,7 @@ class UserPolicy
 - Exercici 8
 En cadascuna de les vistes has d'incrustar al navbar el nom d'usuari registrat i el rol d’aquest.
 
-Fet a resources > views > layouta > partials >header-desktop.blade.php
+Fet a resources > views > layout > partials >header-desktop.blade.php
 
 <div class="content">
 <h5 class="name">
@@ -497,8 +524,59 @@ Fet a resources > views > layouta > partials >header-desktop.blade.php
 <span class="email">{{ Auth::user()->email }}</span>
 </div>
 
+
+
+database > seeders > DatabaseSeeder.php
+
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+
+use App\Models\User;
+
+use Illuminate\Support\Str;
+
+    public function run()
+    {
+        // \App\Models\User::factory(10)->create();
+        Role::create(['name'=>'admin']);
+        Role::create(['name'=>'manager']);
+        Role::create(['name'=>'editor']);
+
+        $admin = User::create([
+            'name'=>'jose',
+            'email'=>'jrobleses@gmail.com',
+            'email_verified_at'=> now(),
+            'password'=>bcrypt('password'),
+            'remember_token'=> Str::random(10),
+        ]);
+
+        $user1 = User::create([
+            'name'=>'Benito',
+            'email'=>'jrobleses2@gmail.com',
+            'email_verified_at'=> now(),
+            'password'=>bcrypt('password'),
+            'remember_token'=> Str::random(10),
+        ]);
+
+        $user2 = User::create([
+            'name'=>'Manolo',
+            'email'=>'jrobleses3@gmail.com',
+            'email_verified_at'=> now(),
+            'password'=>bcrypt('password'),
+            'remember_token'=> Str::random(10),
+        ]);
+		
+		$admin->assignRole('admin');
+
+        $user1->assignRole('manager');
+
+        $user2->assignRole('editor');
+
+
+-------------------------------------------------------------------------
 Per que funcioni el rol ($usuarios->roles()->first()->name) s'envia desde el controlador
  app > Http > Controllers > ReservaHotelController.php la variable usuarios amb le nom del rol.
+
 
 public function index()
     {
@@ -522,6 +600,107 @@ public function edit($id)
        return view('layouts.edit', compact('reserva','usuarios'));
     }
 
+app > Models > User.php
+
+use Spatie\Permission\Traits\HasRoles;
+
+protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'email_verified_at',
+        'remember_token',
+    ];
+
+
+----------------------------------------------------------------
+
+app > Http > Controllers > Auth > RegisteredUserController.php
+
+use Spatie\Permission\Models\Role;
+
+use Illuminate\Support\Str;
+
+class RegisteredUserController extends Controller
+{
+    /**
+     * Display the registration view.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function create()
+    {
+        return view('auth.register');
+    }
+
+    /**
+     * Handle an incoming registration request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'email_verified_at'=> now(),
+            'password' => Hash::make($request->password),
+            'remember_token'=> Str::random(10),
+        ]);
 
 
 
+        
+        $rolConvidat = Role::firstOrCreate(['name' => $request->userType]);		
+		$user->assignRole($rolConvidat);
+
+
+
+
+        event(new Registered($user));
+
+        Auth::login($user);
+
+        return redirect(RouteServiceProvider::HOME);
+    }
+}
+
+
+------------------------------------------------------------------
+
+resources > views > layouts > partials > header-dektop.blade.php
+
+<div class="content">
+	<h5 class="name">
+            <a href="#">{{ Auth::user()->name }}</a><br>
+            <a href="#">Tipo de usuari@ :</a><br>
+            <a href="#">                 
+               {{$usuarios->roles()->first()->name}}                                        
+	    </a>
+        </h5>
+       <span class="email">{{ Auth::user()->email }}</span>
+</div>
+
+--------------------------------------------------------------------
+resources > views > auth > register.blade.php
+
+ <!-- tipus d' usuari -->
+            <div class="mt-4">
+                <x-label for="userType" :value="__('User Type')" />
+
+
+                <select name="userType" class="block mt-1 w-full" >
+                    <option value="admin">Admin</option> 
+                    <option value="manager">Manager</option> 
+                    <option value="editor">Editor</option>
+                </select>
+            </div>

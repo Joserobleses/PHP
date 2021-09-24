@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ReservaHotel;
 use Illuminate\Http\Request;
 
+
 class ReservaHotelController extends Controller
 {
     /**
@@ -16,6 +17,8 @@ class ReservaHotelController extends Controller
     {
         $reservas = ReservaHotel::all();
         $usuarios = auth()->user();
+        
+        
         //return view('reservas.index')->with(['reservas' => $reservas]);
         return view('layouts.reservas')->with(['reservas' => $reservas, 'usuarios'=>$usuarios]);
     }

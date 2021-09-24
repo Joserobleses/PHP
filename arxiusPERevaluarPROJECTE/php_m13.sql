@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-09-2021 a las 00:43:05
+-- Tiempo de generación: 24-09-2021 a las 16:35:47
 -- Versión del servidor: 10.4.20-MariaDB
 -- Versión de PHP: 8.0.9
 
@@ -91,8 +91,14 @@ CREATE TABLE `model_has_roles` (
 
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (1, 'App\\Models\\User', 1),
+(1, 'App\\Models\\User', 21),
+(1, 'App\\Models\\User', 25),
 (2, 'App\\Models\\User', 2),
-(3, 'App\\Models\\User', 3);
+(2, 'App\\Models\\User', 22),
+(2, 'App\\Models\\User', 26),
+(3, 'App\\Models\\User', 3),
+(3, 'App\\Models\\User', 23),
+(3, 'App\\Models\\User', 24);
 
 -- --------------------------------------------------------
 
@@ -165,7 +171,9 @@ CREATE TABLE `reserva_hotels` (
 --
 
 INSERT INTO `reserva_hotels` (`id`, `nom`, `cognoms`, `passaport`, `telefon`, `email`, `adreca`, `ciutat`, `provincia`, `pais`, `comentaris`, `created_at`, `updated_at`) VALUES
-(2, 'Jose', 'Mik Controller', '3679434-t', '6668495', 'jrerwe@hrer.es', 'carrer parell, 22', 'Madrid', 'm', 'Espanya', 'De madrid vine, vi y vencí', NULL, NULL);
+(2, 'Jose', 'Mik Controller', '3679434-t', '6668495', 'Mik@Controller.world', 'carrer parell, 22', 'Madrid', 'madrid', 'Espanya', 'De madrid vine, vi y vencí', NULL, '2021-09-24 12:25:01'),
+(3, 'joselito', 'roblecito', '111222333-W', '600611622', 'joselito@mellaman.es', 'Avenida del Laravel perfumado, 22', 'Malgrat de los mares', 'Barceloneixon', 'Españita', 'Ya rula el register y además puedes escoger tipo de usuario entre Admin, Manager y Editor. Que antes no se podia.', NULL, NULL),
+(4, 'pruebA', 'PRUEBA', '3423423', '61122233', 'jrobleses@gmail.com', 'calle de la almendra partida, 96', 'no se cual', 'no se donde', 'y que más da', 'todo ok', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -223,9 +231,15 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'jose', 'jrobleses@gmail.com', '2021-09-12 18:50:24', '$2y$10$VhNWPySCvaQqrSnWsKKGHeL4Gt7eiYkG1vjiLpo5Av8YxmZPEFjNW', 'zOVaM21v3u9lwHQ1TGW0TSSLJXC9cq8PQ4VqJXMN0OLj3DM0byLiV1ApXw6i', '2021-09-12 18:50:24', '2021-09-12 18:50:24'),
-(2, 'Benito', 'jrobleses2@gmail.com', '2021-09-12 18:50:24', '$2y$10$BqP3smi4mJ7bS0WeOXojje1RYFxBtToJbgmYDKG1yjkVJ4.e3Nnpu', 'YH3qYlZx8lczzv28Qabv9xHWbrmouBECsR8N6hBuvMHzDLEZ2xmUAW8IkGzl', '2021-09-12 18:50:24', '2021-09-12 18:50:24'),
-(3, 'Manolo', 'jrobleses3@gmail.com', '2021-09-12 18:50:24', '$2y$10$ZkQyjn0cWQApABb040FZfe/X5WXI.PfLlMfDINf3GkTv7W/adrefC', '3kfIt7zO1MuwmXxSFUMQHgvw6RvT4HTsH6DaY6dn1CpZcBL4kmCrOnS1lkrN', '2021-09-12 18:50:24', '2021-09-12 18:50:24');
+(1, 'jose', 'jrobleses@gmail.com', '2021-09-12 18:50:24', '$2y$10$VhNWPySCvaQqrSnWsKKGHeL4Gt7eiYkG1vjiLpo5Av8YxmZPEFjNW', '4wJRL4IGiTIuhc3Fz58W2Elq9Ze3X5X04dNUp7jvdtzzhYJqIGaR8Sq3SZfG', '2021-09-12 18:50:24', '2021-09-12 18:50:24'),
+(2, 'Benito', 'jrobleses2@gmail.com', '2021-09-12 18:50:24', '$2y$10$BqP3smi4mJ7bS0WeOXojje1RYFxBtToJbgmYDKG1yjkVJ4.e3Nnpu', 'nzDumAuhnlcULFa6GVS5MbZMCXFSztjrtvDlHPxuMoQV25XNY9KoE2pcR8Gv', '2021-09-12 18:50:24', '2021-09-12 18:50:24'),
+(3, 'Manolo', 'jrobleses3@gmail.com', '2021-09-12 18:50:24', '$2y$10$ZkQyjn0cWQApABb040FZfe/X5WXI.PfLlMfDINf3GkTv7W/adrefC', 'jm4EUJJEQX21l8fxRGohZDurnaNbrtwnYLixCSYb5sheCFrcenlZeWbvZAt9', '2021-09-12 18:50:24', '2021-09-12 18:50:24'),
+(21, 'poiu1', 'poiu1@gmail.com', NULL, '$2y$10$GkdgqxFv4rq52M1/Cp0BN.ciuGPB1tIVL1ZAhnaTrc8sBuElaizsi', NULL, '2021-09-24 12:02:01', '2021-09-24 12:02:01'),
+(22, 'poiu2', 'poiu2@gmail.com', NULL, '$2y$10$PM5q8FIlv2mmFFO4ysolXeDnk7vD3QV4Tf6uPv44Kq69BdE6T9Co6', NULL, '2021-09-24 12:03:33', '2021-09-24 12:03:33'),
+(23, 'poiu3', 'poiu3@gmail.com', NULL, '$2y$10$kqDi6lStovdzYjJd.ZYwm.JCB4.XaEB6id/prO25aH8x04IHaxv.K', NULL, '2021-09-24 12:04:29', '2021-09-24 12:04:29'),
+(24, 'poiu4', 'poiu4@gmail.com', NULL, '$2y$10$clUCOnpsWOOejCxAkvqOceqET.mkUbdJDy3oKWy4YIUs2GcbO0Fl2', NULL, '2021-09-24 12:08:43', '2021-09-24 12:08:43'),
+(25, 'poiu5', 'poiu5@gmail.com', '2021-09-24 12:14:54', '$2y$10$VzuIVG9bkX.bLZ5KIEr75ue8Bp1a25GYXHqXC7IoXD.8hXlEeNADm', NULL, '2021-09-24 12:14:55', '2021-09-24 12:14:55'),
+(26, 'final', 'countdown@gmail.com', '2021-09-24 12:16:27', '$2y$10$m9LlEZLMlgqEHIMplWF9u.qFQ3FIC0xPZ87ZP5YsydZ17SukwY.3W', '1O6XBVvQIYFFMGxavv1GifEPmIyeGbANuTM0Nvpk0t4oLCGzVvpYC0V20fus', '2021-09-24 12:16:27', '2021-09-24 12:16:27');
 
 --
 -- Índices para tablas volcadas
@@ -338,19 +352,19 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT de la tabla `reserva_hotels`
 --
 ALTER TABLE `reserva_hotels`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- Restricciones para tablas volcadas
