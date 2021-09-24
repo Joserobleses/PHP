@@ -1,3 +1,9 @@
+<img src="https://raw.githubusercontent.com/Joserobleses/PHP/PHP_M13vCorregida/arxiusPERevaluarPROJECTE/pantallazoEdicionReserva.png" alt="edició reserva PHP_M13">
+<img src="https://github.com/Joserobleses/PHP/blob/PHP_M13vCorregida/arxiusPERevaluarPROJECTE/pantallazoEdicionReserva.png" alt="edició reserva PHP_M13">
+<img src="https://raw.githubusercontent.com/Joserobleses/PHP/PHP_M13vCorregida/arxiusPERevaluarPROJECTE/pantallazoRegistroDeUsuario.png" alt="Registre usuari PHP_M13">
+<img src="https://github.com/Joserobleses/PHP/blob/PHP_M13vCorregida/arxiusPERevaluarPROJECTE/pantallazoRegistroDeUsuario.png" alt="Registre usuari PHP_M13">
+<img src="https://raw.githubusercontent.com/Joserobleses/PHP/PHP_M13vCorregida/arxiusPERevaluarPROJECTE/pantallazoUsuarioAdmin.png" alt="Usuari admin PHP_M13">
+<img src="https://github.com/Joserobleses/PHP/blob/PHP_M13vCorregida/arxiusPERevaluarPROJECTE/pantallazoUsuarioAdmin.pngg" alt="Usuari admin PHP_M13">
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
