@@ -1,0 +1,245 @@
+{
+	"info": {
+		"_postman_id": "85f0058e-35b3-4ff1-b973-df98239efa59",
+		"name": "php_m14",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "jose",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "jose@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{ip}}:{{port}}/api/register",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "llistar quadres",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ip}}:{{port}}/api/quadre",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"quadre"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear botiga",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "nomBotiga",
+							"value": "botiga1",
+							"type": "text"
+						},
+						{
+							"key": "capacitat",
+							"value": "23",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{ip}}:{{port}}/api/botiga",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"botiga"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "llistar botigues",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ip}}:{{port}}/api/botiga",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"botiga"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "afegir quadre",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "nomAutor",
+							"value": "perico de los palotes",
+							"type": "text"
+						},
+						{
+							"key": "preu",
+							"value": "2334",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{ip}}:{{port}}/api/quadre",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"quadre"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "incendiar quadres",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{ip}}:{{port}}/api/botiga/4",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"botiga",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "jose2@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{ip}}:{{port}}/api/login",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIzIiwianRpIjoiY2MxYjgzODlhOTY5YmU5ZWUyNjRjZjNlODk4ZDk3NTkzNjYwYjhkYmVhZjNmY2RjNmY4ODIxNmM1MDc3YmQ4ZmFjM2E1ZWE5NWI0NTY1MDgiLCJpYXQiOjE2MzI1NjY1NDcuNjYzODU3LCJuYmYiOjE2MzI1NjY1NDcuNjYzODg0LCJleHAiOjE2NjQxMDI1NDcuNTQ5Mjc2LCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.Mp2nlY_SIWGcuTOD08DnX8WvljVQ0dZiacrchJAXTs_aA2i8Eik_B4tRs0sLChCWFSKm1-_jFLRcLw9r7q3EAMzSlwWesOmeCtFPHNcJatehFcjZRMVNClAuVqdvm2BdTDnlnBzdf_AkbLvfwd1FH2laKTVYvztSAG44NEn0d3KYqggiR1-0N9Ik-AePR_4dBfO_UuIrIGzpXPfpWDUuVZ8E3c5IvaJFhqMhDLRXSkUt2Dz3NHeMy8tW7v-d_n64AB4rfgMt_Sg-z9lx3dkJLfDWdZdwYvEet5BeQDtNmpXvn3XLLSWpT8WWrwWX8Ap-pomMqRlklHujzqXpl6TtXBt0LDIe9lax_Bl2RgtjgCfePLUNrn3ii9JjSxSSFSwtpH_02nSFitEZRzTq7-iW8UKPsrEPnR3W474CrCPDtQMgEe9yeg86p3Iw4iGZOpHS4MtOWkvWBxAeWECf8O122fHm7AbhzRRJnMKVnTJVK_jE-ZYwP4nNSpG2Gp47CUILhWbEYvHkobzpaUcLireZtTV-62U5RWnf-1k6sZc-Xo0ZzfB7fdmiOm9P3f9Mb63XtA0BG6ZLgYU3GQCnZALTZa7EG50_MoZe1LkYKvH35jh0RL4mC6fzW8VddO2OBaCSQYM2GaF9ft6uckO63ikHAx8HiH8KGj3PRit1VzXHhto",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{ip}}:{{port}}/api/logout",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
