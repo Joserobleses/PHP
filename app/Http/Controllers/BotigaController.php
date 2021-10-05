@@ -36,6 +36,7 @@ class BotigaController extends Controller
      */
     public function store(Request $request)
     {
+        /*
         $validar = [
             'nomBotiga'=>'required|string|max:30',
             'capacitat'=>'required|string|max:3',
@@ -46,7 +47,20 @@ class BotigaController extends Controller
         ];
 
         $this->validate($request, $validar,$missatge);
+*/
+$input = $request->all();
 
+
+        $validator = Validator::make($input, [
+            'nomAutor'=>'required|string|max:30',
+            'preu'=>'required|string|max:9',
+        ]);
+
+
+        if($validator->fails()){
+            return $this->sendError('Validation Error.', $validator->errors());       
+        }
+        
         $botiga = Botiga::create($request->all());
         return response()->json([
             'botiga' => $botiga
@@ -84,6 +98,7 @@ class BotigaController extends Controller
      */
     public function update(Request $request, Botiga $botiga)
     {
+        /*
         $validar = [
             'nomBotiga'=>'required|string|max:30',
             'capacitat'=>'required|string|max:3',
@@ -94,6 +109,21 @@ class BotigaController extends Controller
         ];
 
         $this->validate($request, $validar,$missatge);
+*/
+
+$input = $request->all();
+
+
+        $validator = Validator::make($input, [
+            'nomAutor'=>'required|string|max:30',
+            'preu'=>'required|string|max:9',
+        ]);
+
+
+        if($validator->fails()){
+            return $this->sendError('Validation Error.', $validator->errors());       
+        }
+        
 
         $botiga->fill($request->post())->save();
         return response()->json([

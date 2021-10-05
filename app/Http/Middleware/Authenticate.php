@@ -20,4 +20,15 @@ class Authenticate extends Middleware
         }
     }
     */
+
+    /*
+    public function handle($request, Closure $next)
+    {
+        $response = $next($request);
+        $response->header('Accept', 'application/json');
+        $response->header('Authorization', 'Bearer '.$accessToken);
+
+        return $response;
+    }
+    */
 }

@@ -36,6 +36,21 @@ class QuadreController extends Controller
      */
     public function store(Request $request)
     {
+
+        $input = $request->all();
+
+
+        $validator = Validator::make($input, [
+            'nomAutor'=>'required|string|max:30',
+            'preu'=>'required|string|max:9',
+        ]);
+
+
+        if($validator->fails()){
+            return $this->sendError('Validation Error.', $validator->errors());       
+        }
+
+/*
         $validar = [
             'nomAutor'=>'required|string|max:30',
             'preu'=>'required|string|max:9',
@@ -46,7 +61,7 @@ class QuadreController extends Controller
         ];
 
         $this->validate($request, $validar,$missatge);
-
+*/
         $quadre = Quadre::create($request->all());
         return response()->json([
             'quadre' => $quadre
@@ -84,6 +99,7 @@ class QuadreController extends Controller
      */
     public function update(Request $request, Quadre $quadre)
     {
+        /*
         $validar = [
             'nomAutor'=>'required|string|max:30',
             'preu'=>'required|string|max:9',
@@ -94,6 +110,20 @@ class QuadreController extends Controller
         ];
 
         $this->validate($request, $validar,$missatge);
+        */
+
+        $input = $request->all();
+
+
+        $validator = Validator::make($input, [
+            'nomAutor'=>'required|string|max:30',
+            'preu'=>'required|string|max:9',
+        ]);
+
+
+        if($validator->fails()){
+            return $this->sendError('Validation Error.', $validator->errors());       
+        }
         
         $quadre->fill($request->post())->save();
         return response()->json([
