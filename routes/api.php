@@ -32,13 +32,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('register',[PassportController::class,'register']);
 
-Route::post('login',[PassportController::class,'login']);
+Route::post('login',[PassportController::class,'login'])->name('login');
 
+Route::group(['middleware' => ['cors']], function () {
 Route::middleware('auth:api')->group(function(){
    
     Route::resource('quadre', App\Http\Controllers\QuadreController::class)->only(['index','store','update','show','destroy']);
 
     Route::resource('botiga', App\Http\Controllers\BotigaController::class)->only(['index','store','update','show','destroy']);
 
+   // Route::delete('incendiar', [App\Http\Controllers\BotigaController::class,'incendiar']);
+   Route::delete('/botigas/quadre/quadres', [App\Http\Controllers\QuadreController::class,'incendiar']);
+
     Route::post('logout',[PassportController::class,'logout']);
+});
 });

@@ -114,5 +114,12 @@ class QuadreController extends Controller
             'missatge' => 'Quadre eliminat'
         ]);
     }
+    public function incendiar()
+    {
+        Quadre::truncate();  
+        return response()->json([
+            'missatge' => 'Quadres eliminats'
+        ]);
+    }
 }
 

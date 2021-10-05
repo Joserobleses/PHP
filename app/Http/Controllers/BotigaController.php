@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Botiga;
+use App\Models\Quadre;
 use Illuminate\Http\Request;
 
 class BotigaController extends Controller
@@ -114,4 +115,6 @@ class BotigaController extends Controller
             'missatge' => 'Botiga eliminada'
         ]);
     }
+    
+   
 }

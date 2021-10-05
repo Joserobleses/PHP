@@ -33,14 +33,14 @@ class PassportController extends Controller
     }
 
     public function register(Request $request){
-        
+       
         $this->validate($request, [
-            'nom'=>'required|string|max:30',
+            'name'=>'required|string|max:30',
             'email'=>'required|email',
             'password'=>'required|string',
 
         ]);
-        
+      //  dd($request);
 
         $user = User::create([
             'name' => $request->name,
