@@ -1,0 +1,13 @@
+composer install
+ php artisan migrate:refresh
+
+php artisan serve
+
+npm cache clean --force
+
+npm install
+
+ npm run watch
+
+////////////////////// php artisan key:generate
+php artisan jwt:secret
