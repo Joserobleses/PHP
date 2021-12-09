@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+{% block title %}Añadir fotos a sitio{% endblock %}
+{% block main %}
+	{{ parent() }}
+	
+	<p>Añadir un nuevas fotos en <b>SymfoPlaces</b>.</p>
+			
+	{{ form(formulario) }}
+
+<div class="d-flex align-items-strecht">
+		{% for foto in fotos %}
+		<div class="card" style="width: 18rem;">
+		 <a href="{{ path('place_show',{'id':foto.id}) }}" class="btn btn-primary">
+					{{foto.titulo}}
+				</a>
+         <div class="embed-responsive embed-responsive-4by3">
+         
+			<a href="{{ path('place_show',{'id':foto.id}) }}">
+				<img class="card-img-top embed-responsive-item"
+					alt="{{foto.titulo}}"
+					src="{{ asset(photos_directory~'/'~foto.fichero) }}"
+					style ="max-width:300px">
+			</a>
+			</div>
+			<div class="card-body">
+				<p class="text-center">{{foto.descripcion}}</p>
+                <div class="text-center">
+                <a href="{{ path('place_edit',{'id':foto.id}) }}">
+					<img src="{{ asset('images/buttons/update.png') }}" alt="Actualizar sitio" title="Editar" height="20" width="20">
+				</a>
+                <span>--</span>
+                <a href="{{ path('place_delete',{'id':foto.id}) }}">
+					<img src="{{asset('images/buttons/delete.png') }}" alt="Borrar sitio" title="Borrar" height="20" width="20">
+				</a>
+                </div>
+			 </div>
+		</div>
+		{% endfor %}
+	</div>
+	</div>
+
+{% endblock %}

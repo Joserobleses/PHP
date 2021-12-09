@@ -1,0 +1,86 @@
+{% for photo in photos %}	
+
+				<div class="card" style="width: 18rem;">
+		 <div class="embed-responsive embed-responsive-4by3">
+		 	
+			<a href="{{ path('place_show',{'id':place.id}) }}">
+				<img class="card-img-top embed-responsive-item"
+					alt="{{place.nom}}"
+					src="{{ asset(photos_directory~'/'~photo.fichero) }}"
+					style ="max-width:300px">
+			</a>
+			
+		 </div>
+			<div class="card-body">
+				<div class="text-center">
+				<a href="{{ path('place_show',{'id':place.id}) }}" class="btn btn-primary">
+					{{photo.titulo}}
+				</a>
+				<a href="{{ path('place_show',{'id': place.id}) }}" ><img src="{{ asset('images/buttons/show.png') }}" alt="detalle sitio" title="" height="20" width="20"></a>
+	 				{% if is_granted('edit', place) %}
+	 					<a href="{{ path('place_edit', {'id': place.id}) }}" ><img src="{{ asset('images/buttons/update.png') }}" alt="actualizar sitio" title="" height="20" width="20"></a>
+	 				{% endif %}
+	 				{% if is_granted('delete', place) %}
+	 					<a href="{{ path('place_delete',{'id': place.id}) }}" ><img src="{{asset('images/buttons/delete.png') }}" alt="" title="borrar sitio" height="20" width="20"></a>
+	 				{% endif %}
+				</div>
+			 </div>
+		</div>
+
+	 				
+	 			
+	 		{% else %}
+	 		
+	 			<p>No hay fotos todavía</p>
+	 		
+ 		{% endfor %}
+
+
+<!-- --------------------------------------------------------------- -->
+<table class="table table-striped table-bordered">
+ 		<tr>
+	 		<th>ID</th>
+	 		<th>Fotos</th>
+	 		<th>Operaciones</th>
+ 		</tr>
+ 		{% for photo in photos %}	
+	 		<tr>
+	 			<td>{{photo.id}}</td>
+	 			<td>{{photo.titulo}}</td>
+<td>
+				<div class="card" style="width: 18rem;">
+		 <div class="embed-responsive embed-responsive-4by3">
+		 	
+			<a href="{{ path('place_show',{'id':place.id}) }}">
+				<img class="card-img-top embed-responsive-item"
+					alt="{{place.nom}}"
+					src="{{ asset(photos_directory~'/'~photo.fichero) }}"
+					style ="max-width:300px">
+			</a>
+			
+		 </div>
+			<div class="card-body">
+				<div class="text-center">
+				<a href="{{ path('place_show',{'id':place.id}) }}" class="btn btn-primary">
+					{{photo.titulo}}
+				</a>
+				</div>
+			 </div>
+		</div>
+</td>
+	 			<td class="text-center">
+	 				<a href="{{ path('place_show',{'id': place.id}) }}" ><img src="{{ asset('images/buttons/show.png') }}" alt="detalle sitio" title="" height="20" width="20"></a>
+	 				{% if is_granted('edit', place) %}
+	 					<a href="{{ path('place_edit', {'id': place.id}) }}" ><img src="{{ asset('images/buttons/update.png') }}" alt="actualizar sitio" title="" height="20" width="20"></a>
+	 				{% endif %}
+	 				{% if is_granted('delete', place) %}
+	 					<a href="{{ path('place_delete',{'id': place.id}) }}" ><img src="{{asset('images/buttons/delete.png') }}" alt="" title="borrar sitio" height="20" width="20"></a>
+	 				{% endif %}
+	 			</td>
+	 		</tr>
+	 		{% else %}
+	 		<tr>
+	 			<td colspan="6">No hay fotos todavía</td>
+	 		</tr>
+ 		{% endfor %}
+ 	</table>

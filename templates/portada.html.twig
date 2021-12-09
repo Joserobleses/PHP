@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% block title %}Portada{% endblock %}
+{% block main %}
+	{{ parent() }}
+	<p>Portada del sitio web <b>SymfoPlaces</b>.</p>
+		<div class="d-flex justify-content-between">
+		{% for place in places %}
+		<div class="card px-2" style="width: 18rem;">
+		 <div class="embed-responsive embed-responsive-4by3">
+			<a href="{{ path('place_show',{'id':place.id}) }}">
+				<img class="card-img-top embed-responsive-item"
+					alt="{{place.nom}}"
+					src="{{ asset(photos_directory~'/'~place.foto) }}"
+					style ="max-width:300px">
+			</a>
+		 </div>
+			<div class="card-body">
+				
+				<a href="{{ path('place_show',{'id':place.id}) }}" class="btn btn-primary">
+					{{place.nom}}
+				</a>
+			 </div>
+		</div>
+		{% endfor %}
+	</div>
+	</div>
+	{% endblock %}

@@ -1,0 +1,12 @@
+{# templates/bundles/TwigBundle/Exception/error500.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Página no encotrada ERROR 500</h1>
+
+    <p>
+        Erro interno del servidor.
+         <a href="{{ path('portada') }}"> vuelve a la portada de Symfoplaces</a>.
+         <img class="h-auto" alt="logo" src="{{ asset('images/template/logo.png') }}">
+    </p>
+{% endblock %}

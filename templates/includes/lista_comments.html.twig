@@ -1,0 +1,26 @@
+<table class="table table-striped table-bordered">
+ 		<tr>
+	 		<th>ID</th>
+	 		<th>Comentario</th>
+	 		<th>Operaciones</th>
+ 		</tr>
+ 		{% for comment in comments %}	
+	 		<tr>
+	 			<td>{{comment.id}}</td>
+	 			<td>{{comment.commenttext}}</td>
+	 			<td class="text-center">
+	 				<a href="{{ path('place_show',{'id': place.id}) }}" ><img src="{{ asset('images/buttons/show.png') }}" alt="detalle sitio" title="" height="20" width="20"></a>
+	 				{% if is_granted('edit', place) %}
+	 					<a href="{{ path('place_edit', {'id': place.id}) }}" ><img src="{{ asset('images/buttons/update.png') }}" alt="actualizar sitio" title="" height="20" width="20"></a>
+	 				{% endif %}
+	 				{% if is_granted('delete', place) %}
+	 					<a href="{{ path('place_delete',{'id': place.id}) }}" ><img src="{{asset('images/buttons/delete.png') }}" alt="" title="borrar sitio" height="20" width="20"></a>
+	 				{% endif %}
+	 			</td>
+	 		</tr>
+	 		{% else %}
+	 		<tr>
+	 			<td colspan="6">No hay comentarios todavía</td>
+	 		</tr>
+ 		{% endfor %}
+ 	</table>

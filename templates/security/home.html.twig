@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}P�gina de usuario {{ app.user.displayname }}{% endblock %}
+{% block main %}
+{{ parent() }}
+<h2>Home de {{ app.user.displayname }}</h2>
+<p>Esta es tu informacion de usuario.</p>
+
+<div class="bg-light border row align-items-center justify-content-center my-3">
+	<div class="col m-3 p-3 text-start">
+		<h2>Datos:</h2>
+		<p><b>ID</b>		{{ app.user.id }}</p>
+		<p><b>Nombre</b>	{{ app.user.displayname }}</p>
+		<p><b>Email</b>		{{ app.user.email }}</p>
+	</div>
+	<div class="col m-3 p-3 text-center bg-light">
+		<img class="rounder border movie-cover" style="max-width: 240px"
+				alt="Foto de {{ app.user.displayname }}"
+				title="Foto de {{ app.user.displayname }}"
+				
+				src="{{ app.user.fotografia ? 
+						path('pic_show', {'fotografia' : app.user.fotografia }) :
+						path('pic_show', {'fotografia' : default.jpg })
+					 }}">
+	</div> 
+</div>
+<div class="my-2 p-2">
+	<h3>Operaciones</h3>
+	<ul>
+		<li><a href="#">Modificar mis datos</a>.</li>
+		<li><a href="#">Baja de usuario</a>.</li>
+	</ul>
+</div>
+<!--<div class="border row align-items-center justify-content-center my-3 p-4">
+	<h2>TODO:</h2>
+	<p>En el futuro, aqu� pondremos el listado de pel�culas documentadas por el usuario.</p>
+</div>-->
+
+<h2>Aportaciones</h2>
+{% set peliculas = app.user.getPeliculas() %}
+{% include '/includes/lista_peliculas.html.twig'  %}
+{% endblock %}

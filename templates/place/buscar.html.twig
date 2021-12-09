@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+{% block title %}Busqueda de Sitios{% endblock %}
+{% block main %}
+	{{ parent() }}
+	<p>Busqueda de sitios en  <b>SymfoPlaces</b>.</p>
+	<p>Indica los criterios de búsqueda y clica <i>Buscar</i>.
+		 Para mostra listado completo, usa % en el campo <i>Valor</i>.
+	</p>
+	
+	<div class="bg-light border row align-items-center justify-content-center my-3 p-1">
+	{{ form_start(formulario) }}
+		<div class="row">
+		
+			<div class="col">{{ form_row(formulario.valor) }}</div>
+			<div class="col">{{ form_row(formulario.campo) }}</div>
+			<div class="col">{{ form_row(formulario.orden) }}</div>
+			<div class="col">{{ form_row(formulario.sentido) }}</div>
+			<div class="col">{{ form_row(formulario.limite) }}</div>
+			<div class="col">{{ form_row(formulario.buscar) }}</div>
+			{{ form_rest(formulario) }}
+		</div>
+		{{ form_rest(formulario) }}
+	</div>
+	
+	<h3>Resultado</h3>
+	
+	{% include '/includes/lista_places.html.twig' %}
+	
+	<div class="text-center">
+		<a href="{{ path('place_list') }}">
+			<img height="40" width="40"
+					src="{{ asset('images/buttons/list.png') }}"
+					alt="Lista"
+					title="Volver al listado de sitios">
+		</a>
+	</div>
+	{% endblock %}

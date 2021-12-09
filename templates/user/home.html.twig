@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+{% block title %}Página de usuario {{ app.user.displayname }}{% endblock %}
+{% block main %}
+{{ parent() }}
+
+{% if not app.user.isVerified %}
+	<div class="row alert alert-danger p-2" role="alert">
+		<p>La dirección de email {{ app.user.email }} <b> no ha sido verificada</b>.
+		Por favor haz clic
+		en <a href="{{ path('resend_verification') }}">verificar usuario</a>
+		para completar el proceso de registro y poder acceder a todas las funcionalidades de SymfoPlaces.</p>
+	</div>
+{% endif %}
+
+<h2>Home de {{ app.user.displayname }}</h2>
+<p>Esta es tu informacion de usuario.</p>
+
+<div class="col m-3 p-3 text-start">
+	<div class="my-2 p-2">
+		<h2>Datos:</h2>
+		<p><b>ID</b>		{{ app.user.id }}</p>
+		<p><b>Nombre</b>	{{ app.user.displayname }}</p>
+		<p><b>Email</b>		{{ app.user.email }}</p>
+	</div>
+	<div class="my-2 p-2">
+		<h3>Operaciones</h3>
+		<ul>
+			<li><a href="{{ path('unsubscribe') }}">Baja de usuario</a>.</li>
+		</ul>
+	</div>
+
+
+<table class="table table-striped table-bordered">
+ 		<tr>
+	 		<th>ID</th>
+	 		<th>Nombre</th>
+	 		<th>Foto</th>
+	 		<th>Pais</th>
+	 		<th>Población</th>
+	 		<th>Tipo</th>
+	 		<th>Valoración</th>
+	 		<th>Operaciones</th>
+ 		</tr>
+ 		{% for place in places %}	
+	 		<tr>
+	 			<td>{{place.id}}</td>
+	 			<td>{{place.nom}}</td>
+	 			<td class="text-center">
+	 				<a href="{{ path('place_show',{'id':place.id}) }}">
+	 				<img class="lista-cover rounded" style="max-width:140px"
+	 					alt="Foto de {{place.foto}}"
+	 					title="Foto de {{place.foto}}"
+	 					src="{{ asset(photos_directory~'/'~(place.foto ?? 'default.jpg')) }}" <!-- alt+alt Gr + 4 + espacio ~ -->
+	 				</a>
+	 			</td>
+	 			<td>{{place.pais}}</td>
+	 			<td>{{place.poblacio}}</td>
+	 			<td>{{place.tipus}}</td>
+	
+	 			<td>
+	 			{% if place.valoracio !=NULL %}
+	 				{% for i in 1..5 %}
+	 					{% if i <= place.valoracio %}
+	 						<img src="{{asset('images/samples/estrellaon.gif')}}"
+	 							alt="{{place.valoracio}}/5" title="{{place.valoracio}}/5"
+	 							style="height:25px; width:25px;" />
+	 					{% else %}
+	 					<img src="{{asset('images/samples/estrellaoff.gif')}}"
+	 							alt="{{place.valoracio}}/5" title="{{place.valoracio}}/5"
+	 							style="height:25px; width:25px;" />
+	 					{% endif %}
+	 				{% endfor %}
+	 			{% else %}
+	 				Sin Valorar
+	 			{% endif %}
+	 			
+	 			</td>
+	 			
+	 			
+	 			<td class="text-center">
+	 				<a href="{{ path('place_show',{'id': place.id}) }}" ><img src="{{ asset('images/buttons/show.png') }}" alt="detalle sitio" title="" height="20" width="20"></a>
+	 				{% if is_granted('edit', place) %}
+	 					<a href="{{ path('place_edit', {'id': place.id}) }}" ><img src="{{ asset('images/buttons/update.png') }}" alt="actualizar sitio" title="" height="20" width="20"></a>
+	 				{% endif %}
+	 				{% if is_granted('delete', place) %}
+	 					<a href="{{ path('place_delete',{'id': place.id}) }}" ><img src="{{asset('images/buttons/delete.png') }}" alt="" title="borrar sitio" height="20" width="20"></a>
+	 				{% endif %}
+	 			</td>
+	 		</tr>
+	 		{% else %}
+	 		<tr>
+	 			<td colspan="6">No hay sitios todavia</td>
+	 		</tr>
+ 		{% endfor %}
+ 	</table>
+
+
+
+
+	<!--<div class="col m-3 p-3 text-center bg-light">
+		<img class="rounder border movie-cover" style="max-width: 240px"
+				alt="Foto de {{ app.user.displayname }}"
+				title="Foto de {{ app.user.displayname }}"
+				src="{{ asset('/images/users/default.jpg') }}"> //////image default
+	</div> -->
+</div>
+
+{% endblock %}

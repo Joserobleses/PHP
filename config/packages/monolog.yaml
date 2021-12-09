@@ -1,0 +1,26 @@
+monolog:
+    channels: ['app_info','app_user_info']
+
+    handlers:
+        appinfo:
+            type: stream
+            path: "%kernel.logs_dir%/appinfo.log"
+            level: debug
+            channels: ["app_info"]
+            buffer_size: 500
+        appuserinfo:
+            type: stream
+            path: "%kernel.logs_dir%/appuserinfo.log"
+            level: info
+            channels: ["app_user_info"]
+            buffer_size: 500
+        symfony_mailer:
+            type:          symfony_mailer
+            from_email:    'admin@symfoplaces.com'
+            to_email:      '%app.admin_email%'
+            channels:      ["app_user_info"]
+            subject:       'SymfoPlaces: %%message%%'
+            formatter:     monolog.formatter.html
+            content_type:  text/html
+   
+     

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+{% block title %}Listado de comentarios{% endblock %}
+{% block main %}
+	{{ parent() }}
+	<p>Listado de comentarios en  <b>SymfoPlaces</b>.</p>
+		
+	{# subvista con la lista de places #}
+	{% include '/includes/lista_comments.html.twig' %}
+ 	
+ 	
+ 	{%
+ 		include '/includes/paginator.html.twig' with
+ 			{
+ 				'route': 'comment_list',
+ 				'entidades': 'comment'
+ 			}
+ 	%}		
+	{% endblock %}

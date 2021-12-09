@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+{% block title %}Nuevo sitio{% endblock %}
+{% block main %}
+	{{ parent() }}
+	
+	<p>Crear un nuevo sitio en <b>SymfoPlaces</b>.</p>
+			
+	{{ form(formulario) }}
+	{% endblock %}

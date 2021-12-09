@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Eliminacion de usuario {{usuario.displayname }} {% endblock %}
+{% block main %}
+{{ parent() }}
+	<div class="bg-light border row align-items-center justify-content-center my-3">
+		<div class="col-6 p-4">
+			<p>Eliminacion de usuario <b>{{ usuario.displayname }}</b>.</p>
+			<p>Por favor, confirma la operacion de baja del usuario mediante el formulario.</p>
+			{{ form(formulario) }}
+		</div>
+		<div class="col-6 text-center bg-light">
+			<figure class="p-2">
+				<img class="rounded border movie-cover" style="max-width: 200px"
+					alt="Imagen de {{ usuario.displayname }}"
+					title="Carátula de  {{usuario.displayname }}"
+					src="{{ asset(users-directory~'default.jpg') }}">
+			</figure>
+		</div>
+	</div>
+	<div class="text-center">
+		<a href="{{ path('home') }}">
+			<img height="40" width="40" src="{{ asset('images/buttons/home.png') }}"
+		</a>
+	</div>
+	{% endblock %}

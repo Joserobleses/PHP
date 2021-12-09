@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% block title %}Borrar pelicula {{pelicula.titulo }}{% endblock %}
+{% block main %}
+	{{ parent() }}
+
+<div class="bg-light border row align-items-center justify-content-center my-3">
+	<div class="col-6 p-4">	
+		<p>Borrar pelicula <b>{{pelicula.titulo }}</b>.</p>
+		<p>Confirma el borrado mediante el formulario.</p>
+
+		
+		{{ form(formulario) }}
+	</div>
+	<div class="col-6 text-center bg-light">
+		<figure class="p-2">
+			<img class="rounded border movie-cover" style="max-width: 220px"
+				alt="Caratula de {{pelicula.titulo}}"
+				title="Caratula de {{pelicula.titulo}}"
+				src="{{asset(covers_directory~'/'~(pelicula.caratula??'default.jpg'))}}">
+		</figure>
+	</div>
+</div>
+	{% endblock %}

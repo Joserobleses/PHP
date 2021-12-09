@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+{% block title %}Editar sitio {{place.nom }}{% endblock %}
+{% block main %}
+	{{ parent() }}
+	
+	<h1>Edicion de {{place.nom }}</h1>
+	
+<div class="bg-light border row align-items-center justify-content-center my-3">
+	<div class="col-6">		
+		{{ form(formulario) }}
+	</div>
+	<div class="col-6 text-center">
+	<h4>Foto actual</h4>
+		<figure class="my-2 p-2">
+			<img id="actual" class="rounded border movie-cover" style="max-width:220px"
+ 					alt="Foto de {{place.nom}}"
+ 					title="Foto de {{place.nom}}"
+ 					src="{{ asset(photos_directory~'/'~(place.foto ?? 'default.jpg')) }}"> <!-- alt+alt Gr + 4 + espacio ~ -->
+ 	
+ 	
+ 			{% if place.foto %}
+ 			<figcaption class="my-3 text-center">
+ 				Borrar esta foto
+ 				<a href="{{path('place_delete_photo',{'id':place.id}) }}">
+ 					<img class="" src="{{asset('images/buttons/delete.png')}}" height="30" witdth="30"
+ 						alt="Borrar foto" title="borrar foto">
+ 				</a>
+ 			</figcaption>
+ 			{% endif %}
+ 		</figure>
+ 		
+ 		<h4>Previsualización</h4>
+		<figure class="my-2 p-2">
+			<img id="preview" class="rounded border movie-cover" style="max-width:220px"
+ 					alt="Foto de {{place.nom}}"
+ 					title="Foto de {{place.nom}}"
+ 					src="{{ asset(photos_directory~'/'~(place.foto ?? 'default.jpg')) }}"> <!-- alt+alt Gr + 4 + espacio ~ -->
+ 			<figcaption class="my-3 text-center">
+ 			Foto tras aplicar los cambios
+ 			</figcaption>
+ 		</div>
+ 	</div>	
+	 <h2>Fotos</h2>
+		{% if place.getPhotoss()|length >0 %}
+			<h3>Lista de fotos</h3>
+			{% set photos = place.getPhotoss() %}
+			{% include '/includes/lista_photos.html.twig'  %}
+		{% else %}
+			<p>No hay fotos todavía</p>
+		{% endif %}
+		<h3>Nueva foto</h3>
+		<div class="bg-light border row align-items-center justify-content-center my-3 p-1">
+		{{ form_start(formularioFoto) }}
+			<div class="row">
+			
+				<div class="col">{{ form_row(formularioFoto.titulo, { 'value': '' }) }}</div>
+				<div class="col">{{ form_row(formularioFoto.descripcion, { 'value': '' }) }}</div>
+				<div class="col">{{ form_row(formularioFoto.fecha, { 'value': '' }) }}</div>
+
+				
+				{{ form_rest(formularioFoto) }}
+			</div>
+			{{ form_end(formularioFoto) }}
+		</div>
+	
+	
+	 <div class="text-center">
+		<a href="{{ path('place_list') }}" ><img src="{{ asset('images/buttons/list.png') }}" alt="lista" title="Volver al listado" height="40" width="40"></a>
+		  <a href="{{ path('place_edit',{'id':place.id}) }}" ><img src="{{ asset('images/buttons/update.png') }}" alt="modificar" title="modificar" height="40" width="40"></a>
+		<a href="{{ path('place_delete',{'id':place.id}) }}" ><img src="{{ asset('images/buttons/delete.png') }}" alt="borrar" title="borrar" height="40" width="40"></a>
+		
+	</div>
+ 	
+ 	<script src="{{ asset('/js/previewEdit.js')}}"></script>
+	{% endblock %}
+	

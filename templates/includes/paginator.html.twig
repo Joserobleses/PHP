@@ -1,0 +1,26 @@
+<div class="row">
+ 			{% if totalPaginas > 1 %}
+ 				<nav class="container row" aria-label="Paginacion de resultados">
+ 					<p class="col-6">
+ 						Pagina {{ paginaActual }} de {{ totalPaginas }}, hay <b>{{ totalPlaces }}</b> sitios en total.
+ 					</p>
+ 					<ul class="col-6 pagination justify-content-end">
+ 						{% if paginaActual > 1 %}
+ 						<li class="page-item">
+ 							<a class="page-link" href="{{ path('place_list',{pagina: paginaActual-1 < 1 ? 1 : paginaActual-1}) }}">izq</a>
+ 						</li>
+ 						{% endif %}
+ 						{% for i in 1..totalPaginas %}
+ 						<li class="page-item{{i == paginaActual ? 'active': ''}}">
+ 							<a class="page-link" href="{{ path('place_list',{pagina: i}) }}">{{ i }}</a>
+ 						</li>
+ 						{% endfor %}
+ 						{% if paginaActual < totalPaginas %}
+ 						<li class="page-item">
+ 							<a class="page-link" href="{{ path('place_list',{pagina: paginaActual+1 <= totalPaginas ? paginaActual+1 : paginaActual}) }}">der</a>
+ 						</li>
+ 						{% endif %}
+ 					</ul>
+ 				</nav>		
+ 			{% endif %}
+ 	</div>
